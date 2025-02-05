@@ -7,29 +7,23 @@ namespace MastermindLib
 {
     public class CodeBreaker
     {
+        private Random rnd = new Random();
+        private string _name;
         public CodeBreaker(string name)
         {
-            throw new System.NotImplementedException();
+            _name = name;
         }
 
         public CodeBreaker()
         {
-            throw new System.NotImplementedException();
+            _name = "player" + rnd.Next(1);
         }
 
-        public int Name
+        public string Name
         {
-            get => default;
-            set
+            get
             {
-            }
-        }
-
-        public int Score
-        {
-            get => default;
-            set
-            {
+                return _name;
             }
         }
 

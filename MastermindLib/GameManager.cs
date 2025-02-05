@@ -7,20 +7,28 @@
         private Colours[] _codeSolution;
         private int _nAttempts;
         private int _nColours;
-        private int _isBotOn;
+        private bool _isBotOn;
+        private bool _isColorBlind;
+        private bool _isAllWrong;
+        private int _rightPosition;
+        private int _wrongPosition;
 
         private CodeGenerator _bot;
 
-        public GameManager(bool isBotOn,bool isColorBlind,int codeLength,int nColours, int nAttempts, int codeComplexity)
+        public GameManager(bool isBotOn ,bool isColorBlind,int codeLength,int nColours, int nAttempts, int codeComplexity)
         {
             _bot = new CodeGenerator(codeLength,nColours,codeComplexity);
             //_codeSolution = _bot.GenerateCode();
             _nAttempts = nAttempts;
+            _codeLength = codeLength;
+            _nColours = nColours;
+            _isColorBlind = isColorBlind;
+            
         }
 
-        public GameManager(Colours[] codeSolution,int codeLength, int nColours, int nAttempts, int codeComplexity)
+        public GameManager(Colours[] codeSolution,bool isBotOn ,bool isColorBlind,int codeLength, int nColours, int nAttempts, int codeComplexity):this(isBotOn,isColorBlind, codeLength, nColours,nAttempts,codeComplexity)
         {
-            
+            _codeSolution = codeSolution;
         }
 
         public int NAttempts
@@ -59,45 +67,33 @@
 
         public bool IsColorBlindness
         {
+            get
+            {
+                return _isColorBlind;
+            }
         }
 
         public int RightPosition
         {
-            get => default;
-            set
+            get
             {
+                return _rightPosition;
             }
         }
 
         public int WrongPosition
         {
-            get => default;
-            set
+            get 
             {
+                return _wrongPosition;
             }
         }
 
-        public int IsAllWrong
+        public bool IsAllWrong
         {
-            get => default;
-            set
+            get
             {
-            }
-        }
-
-        public CodeGenerator CodeGenerator
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public CodeBreaker CodeBreaker
-        {
-            get => default;
-            set
-            {
+                return _isAllWrong;
             }
         }
 
@@ -119,12 +115,18 @@
         private bool CheckGuess(Colours[] codeToCheck)
         {
             bool correct = true;
-            int i = 0;
-            while (correct || i < codeToCheck.Length)
+            _rightPosition = 0;
+            for(int i = 0; i<codeToCheck.Length; i++)
             {
-                correct = codeToCheck[i] == _codeSolution[i];
+                if(codeToCheck[i] == _codeSolution[i])
+                {
+                    correct = true;
+                    _rightPosition++;
+                }
                 i++;
             }
+            _isAllWrong = _rightPosition == 0;
+
 
             return correct;
 

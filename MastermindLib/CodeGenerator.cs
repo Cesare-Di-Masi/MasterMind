@@ -11,26 +11,28 @@ namespace MastermindLib
 
         private int _codeComplexity;
 
-        private int _codeSolution;
-
         private int _nColours;
 
         public CodeGenerator(int codeLength, int nColours, int codeComplexity)
         {
-            throw new System.NotImplementedException();
+            _codeLength = codeLength;
+            _codeComplexity = codeComplexity;
+            _nColours = nColours;
         }
 
-        public Colours Colours
+        public Colours[] GenerateCode()
         {
-            get => default;
-            set
+            Colours[] code = new Colours[_codeLength];
+            Colours cl = 0;
+            Random rnd = new Random();
+
+            for(int i=0; i<_codeLength; i++)
             {
+                code[i] = cl + rnd.Next(0, _nColours - 1);
             }
-        }
 
-        public void GenerateCode()
-        {
-            throw new System.NotImplementedException();
+            return code;
+
         }
     }
 }
