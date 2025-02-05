@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Generatore del messaggio, non attivo se si gioca contro il giocatore poichè il codice è deciso da quest'ultimo.">
+    <Position X="3.136" Y="0.5" Height="0.99" Width="2.065" />
+  </Comment>
+  <Comment CommentText="Giocatore che ha un nome e un punteggio, il suo compito è quello di ricevere il codice con cui provare di indovinare il codice e poi mandarlo al gameManager">
+    <Position X="5.326" Y="5.434" Height="1.146" Width="2.448" />
+  </Comment>
+  <Class Name="MastermindLib.GameManager">
+    <Position X="0.5" Y="1.5" Width="2.5" />
+    <AssociationLine Name="CodeGenerator" Type="MastermindLib.CodeGenerator" FixedFromPoint="true">
+      <Path>
+        <Point X="3" Y="2.125" />
+        <Point X="5.25" Y="2.125" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ABIAADAKgAAAAAJAAAAAAAAAAAAAFAQBIAUAAAAEAAk=</HashCode>
+      <FileName>GameManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CodeGenerator" />
+      <Property Name="CodeBreaker" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MastermindLib.CodeGenerator">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <AssociationLine Name="Colours" Type="MastermindLib.Colours" FixedFromPoint="true">
+      <Path>
+        <Point X="6.75" Y="1.625" />
+        <Point X="9" Y="1.625" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAIAAAACAAAAAAIIAAAAAAAAAAAAACAAAAEAAAAAAAA=</HashCode>
+      <FileName>Bot.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Colours" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MastermindLib.CodeBreaker">
+    <Position X="5.25" Y="3.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAQAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CodeBreaker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="MastermindLib.Colours">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAARAAAIAAhAACBAAxAAAAAAAAACACAAEADABAIE=</HashCode>
+      <FileName>Colours.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
