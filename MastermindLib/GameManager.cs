@@ -11,7 +11,7 @@
 
         private CodeGenerator _bot;
 
-        public GameManager(bool isBotOn,int codeLength,int nColours, int nAttempts, int codeComplexity)
+        public GameManager(bool isBotOn,bool isColorBlind,int codeLength,int nColours, int nAttempts, int codeComplexity)
         {
             _bot = new CodeGenerator(codeLength,nColours,codeComplexity);
             //_codeSolution = _bot.GenerateCode();
@@ -45,18 +45,20 @@
         {
             get
             {
-                return NCo
+                return _nColours;
             }
         }
 
         public int CodeComplexity
         {
-            get => default;
+            get
+            {
+                return _codeComplexity;
+            }
         }
 
         public bool IsColorBlindness
         {
-            get => default;
         }
 
         public int RightPosition
