@@ -11,5 +11,10 @@ namespace MasterMind_DiMasi_Senni
         {
             InitializeComponent();
         }
+
+        private void btnPVP_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
