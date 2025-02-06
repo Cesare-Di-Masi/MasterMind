@@ -7,9 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Label x:Name="lblMastermind" Content="MASTERMIND" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top"  />
-        <Button x:Name="btnPVP" Content="PVP" HorizontalAlignment="Left" Margin="96,248,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.448,-1.113" Height="56" Width="172" Click="btnPVP_Click"/>
-        <Button x:Name="btnPVE" Content="PVE" HorizontalAlignment="Right" Margin="0,248,96,0" VerticalAlignment="Top" RenderTransformOrigin="0.448,-1.113" Height="56" Width="172" Click="btnPVP_Click"/>
+        <Label x:Name="lblMastermind" Content="MASTERMIND" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="60" FontFamily="Bernard MT Condensed" />
+        <Button x:Name="btnPVP" Content="PVP" HorizontalAlignment="Left" Margin="96,248,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.448,-1.113" Height="56" Width="172" Click="btnPVP_Click" FontSize="30" FontFamily="Bernard MT Condensed"/>
+        <Button x:Name="btnPVE" Content="PVE" HorizontalAlignment="Right" Margin="0,248,96,0" VerticalAlignment="Top" RenderTransformOrigin="0.448,-1.113" Height="56" Width="172" Click="btnPVE_Click" FontSize="30" FontFamily="Bernard MT Condensed"/>
+        <Button x:Name="btnRule" Content="?" HorizontalAlignment="Left" Margin="380,172,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.448,-1.113" Height="45" Width="46" Click="btnRule_Click" FontSize="30" FontFamily="Bernard MT Condensed"/>
+        <Label x:Name="lblPhrase" Content="The game of spy for people that aren't spies" HorizontalAlignment="Left" Height="34" Margin="253,96,0,0" VerticalAlignment="Top" Width="350" FontSize="20" FontFamily="Bernard MT Condensed"/>
 
     </Grid>
 </Window>
