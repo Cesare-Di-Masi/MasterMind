@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace MastermindLib
+﻿namespace MastermindLib
 {
     public class CodeBreaker
     {
         private Random rnd = new Random();
         private string _name;
+
         public CodeBreaker(string name)
         {
             _name = name;

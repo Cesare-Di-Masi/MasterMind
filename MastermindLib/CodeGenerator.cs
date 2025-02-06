@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace MastermindLib
+﻿namespace MastermindLib
 {
     public class CodeGenerator
     {
@@ -26,13 +21,12 @@ namespace MastermindLib
             Colours cl = 0;
             Random rnd = new Random();
 
-            for(int i=0; i<_codeLength; i++)
+            for (int i = 0; i < _codeLength; i++)
             {
                 code[i] = cl + rnd.Next(0, _nColours - 1);
             }
 
             return code;
-
         }
     }
 }

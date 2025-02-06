@@ -15,18 +15,17 @@
 
         private CodeGenerator _bot;
 
-        public GameManager(bool isBotOn ,bool isColorBlind,int codeLength,int nColours, int nAttempts, int codeComplexity)
+        public GameManager(bool isBotOn, bool isColorBlind, int codeLength, int nColours, int nAttempts, int codeComplexity)
         {
-            _bot = new CodeGenerator(codeLength,nColours,codeComplexity);
+            _bot = new CodeGenerator(codeLength, nColours, codeComplexity);
             //_codeSolution = _bot.GenerateCode();
             _nAttempts = nAttempts;
             _codeLength = codeLength;
             _nColours = nColours;
             _isColorBlind = isColorBlind;
-            
         }
 
-        public GameManager(Colours[] codeSolution,bool isBotOn ,bool isColorBlind,int codeLength, int nColours, int nAttempts, int codeComplexity):this(isBotOn,isColorBlind, codeLength, nColours,nAttempts,codeComplexity)
+        public GameManager(Colours[] codeSolution, bool isBotOn, bool isColorBlind, int codeLength, int nColours, int nAttempts, int codeComplexity) : this(isBotOn, isColorBlind, codeLength, nColours, nAttempts, codeComplexity)
         {
             _codeSolution = codeSolution;
         }
@@ -35,17 +34,15 @@
         {
             get
             {
-                return _nAttempts; 
+                return _nAttempts;
             }
-
         }
 
         public int CodeLength
         {
             get
             {
-
-            return _codeLength; 
+                return _codeLength;
             }
         }
 
@@ -83,7 +80,7 @@
 
         public int WrongPosition
         {
-            get 
+            get
             {
                 return _wrongPosition;
             }
@@ -105,7 +102,7 @@
 
         public bool EndOfTheTurn(Colours[] codeToCheck)
         {
-            if(CheckGuess(codeToCheck) || _nAttempts == 0)
+            if (CheckGuess(codeToCheck) || _nAttempts == 0)
             {
                 return true;
             }
@@ -116,9 +113,9 @@
         {
             bool correct = true;
             _rightPosition = 0;
-            for(int i = 0; i<codeToCheck.Length; i++)
+            for (int i = 0; i < codeToCheck.Length; i++)
             {
-                if(codeToCheck[i] == _codeSolution[i])
+                if (codeToCheck[i] == _codeSolution[i])
                 {
                     correct = true;
                     _rightPosition++;
@@ -127,9 +124,7 @@
             }
             _isAllWrong = _rightPosition == 0;
 
-
             return correct;
-
         }
     }
 }
