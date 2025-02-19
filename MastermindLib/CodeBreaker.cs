@@ -7,6 +7,12 @@
 
         public CodeBreaker(string name,int maxColour)
         {
+            if(String.IsNullOrEmpty(name))
+                throw new ArgumentNullException("illegal player name");
+
+            if (maxColour < 1 || maxColour > 20)
+                throw new ArgumentOutOfRangeException("illegal maxColour");
+
             _name = name;
         }
 

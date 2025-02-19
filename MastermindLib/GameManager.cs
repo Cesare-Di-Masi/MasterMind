@@ -13,12 +13,28 @@
         private int _rightPosition;
         private int _wrongPosition;
 
-        private CodeGenerator _bot;
+        private IGenerator _bot;
 
-        public GameManager(bool isBotOn, bool isColorBlind, int codeLength, int nColours, int nAttempts, int codeComplexity)
+        public GameManager(bool isColorBlind, int codeLength, int nColours, int nAttempts, int codeComplexity, IGenerator bot = null)
         {
-            _bot = new CodeGenerator(codeLength, nColours, codeComplexity);
-            _codeSolution = _bot.GenerateCode();
+
+            if (codeLength < 4 || codeLength > 12)
+                throw new ArgumentOutOfRangeException("lunghezza del codice deve essere fra 4 e 12");
+
+            if (nColours < 4 || nColours > 20)
+                throw new ArgumentOutOfRangeException("il numero di colori deve essere fra 4 e 20");
+
+            if (nAttempts < 1)
+                throw new ArgumentOutOfRangeException("numero di tentativi deve essere almeno 1");
+
+            if (codeComplexity < 1 || codeComplexity > 5)
+                throw new ArgumentOutOfRangeException("complessità del codice deve essere fra 1 e 5");
+
+            if (bot == null)
+                _bot = new CodeGenerator(codeLength, nColours, codeComplexity);
+            else
+                _bot = bot;
+            _codeSolution = _bot.generateCode();
             _nAttempts = nAttempts;
             _codeLength = codeLength;
             _nColours = nColours;
@@ -26,7 +42,7 @@
         }
 
         //caso in cui la soluzione venga decisa da un player
-        public GameManager(Colours[] codeSolution, bool isBotOn, bool isColorBlind, int codeLength, int nColours, int nAttempts, int codeComplexity) : this(isBotOn, isColorBlind, codeLength, nColours, nAttempts, codeComplexity)
+        public GameManager(Colours[] codeSolution, bool isColorBlind, int codeLength, int nColours, int nAttempts, int codeComplexity) : this(isColorBlind, codeLength, nColours, nAttempts, codeComplexity)
         {
             _codeSolution = codeSolution;
         }
@@ -101,13 +117,23 @@
             return _codeSolution;
         }
 
-        public bool EndOfTheTurn(Colours[] codeToCheck)
+        public GameStatus EndOfTheTurn(Colours[] codeToCheck)
         {
-            if (CheckGuess(codeToCheck) || _nAttempts == 0)
+
+            if (codeToCheck == null || codeToCheck.Length != _codeSolution.Length)
+                throw new ArgumentException("il codice tentato è illegale");
+
+            if (CheckGuess(codeToCheck))
             {
-                return true;
+                return GameStatus.Won;
             }
-            return false;
+
+            if(NAttempts ==0)
+            {
+                return GameStatus.Lost;
+            }
+
+            return GameStatus.Playing;
         }
 
         private bool CheckGuess(Colours[] codeToCheck)

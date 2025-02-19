@@ -1,6 +1,6 @@
 ﻿namespace MastermindLib
 {
-    public class CodeGenerator
+    public class CodeGenerator:IGenerator
     {
         private int _codeLength;
 
@@ -20,7 +20,7 @@
             _chosenColours = new int[nColours];
         }
 
-        public Colours[] GenerateCode()
+        public Colours[] generateCode()
         {
             Colours[] code = new Colours[_codeLength];
             Colours cl = 0;
@@ -36,7 +36,8 @@
                     if (_chosenColours[_extracedColours] > _codeComplexity)
                     {
                         redo = true;
-                    }else
+                    }
+                    else
                     {
                         redo = false;
                         _chosenColours[_extracedColours]++;
