@@ -9,7 +9,7 @@
     <Grid>
         <Label x:Name="lblModality" Content="Selezionare la modalità di&#xD;&#xA; gioco contro il computer " HorizontalAlignment="Center" Margin="0,10,0,360" Width="212" FontSize="20" FontFamily="Bernard MT Condensed"/>
         <Button x:Name="btnDifficult" Content="DIFFICILE (10 colori)" HorizontalAlignment="Right" Margin="50,148,50,0" VerticalAlignment="Top" RenderTransformOrigin="0.448,-1.113" Height="56" Width="172" Click="btnP_Click" FontSize="15" FontFamily="Bernard MT Condensed"/>
-        <Button Content="Button" Margin="50,149,578,230"  />
+        <Button x:Name="btnEasy" Content="Facile(6 colori)" Margin="50,149,578,230" Click="Button_Click" FontSize="15" FontFamily="Bernard MT Condensed"  />
 
     </Grid>
 </Window>

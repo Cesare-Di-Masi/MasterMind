@@ -5,14 +5,14 @@
         private Random rnd = new Random();
         private string _name;
 
-        public CodeBreaker(string name)
+        public CodeBreaker(string name,int maxColour)
         {
             _name = name;
         }
 
         public CodeBreaker()
         {
-            _name = "player" + rnd.Next(1);
+            _name = "player" + rnd.Next(0,100);
         }
 
         public string Name
@@ -23,9 +23,9 @@
             }
         }
 
-        public void ChangeSelectedColour()
-        {
-            throw new System.NotImplementedException();
+        public void ChangeSelectedColour(ref Colours current)
+        { 
+            current++;
         }
     }
 }

@@ -28,5 +28,10 @@ namespace MasterMind_DiMasi_Senni
         {
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -18,13 +18,14 @@
         public GameManager(bool isBotOn, bool isColorBlind, int codeLength, int nColours, int nAttempts, int codeComplexity)
         {
             _bot = new CodeGenerator(codeLength, nColours, codeComplexity);
-            //_codeSolution = _bot.GenerateCode();
+            _codeSolution = _bot.GenerateCode();
             _nAttempts = nAttempts;
             _codeLength = codeLength;
             _nColours = nColours;
             _isColorBlind = isColorBlind;
         }
 
+        //caso in cui la soluzione venga decisa da un player
         public GameManager(Colours[] codeSolution, bool isBotOn, bool isColorBlind, int codeLength, int nColours, int nAttempts, int codeComplexity) : this(isBotOn, isColorBlind, codeLength, nColours, nAttempts, codeComplexity)
         {
             _codeSolution = codeSolution;
@@ -95,9 +96,9 @@
         }
 
         //stampa la soluzione del codice nel caso si sia indovinato o siano finite le vite
-        public void GiveColourCode()
+        public Colours[] GiveColourCode()
         {
-            throw new System.NotImplementedException();
+            return _codeSolution;
         }
 
         public bool EndOfTheTurn(Colours[] codeToCheck)
