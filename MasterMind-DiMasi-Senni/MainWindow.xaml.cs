@@ -18,5 +18,13 @@ namespace MasterMind_DiMasi_Senni
         private void btnPVP_Click(object sender, RoutedEventArgs e)
         {
         }
+
+        private void btnPVE_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void btnRule_Click(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }

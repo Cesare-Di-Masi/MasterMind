@@ -5,20 +5,14 @@ namespace MastermindProgram
 {
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            CodeGenerator generator = new CodeGenerator(6, 4, 1);
+            CodeBreaker breaker = new CodeBreaker("Gionni", 4);
 
-            Colours[] col = generator.generateCode();
-            int[] check = new int[col.Length];
-            bool cor = false;
+            Colours actual = Colours.Yellow;
+            Colours expected = Colours.Green;
 
-            for (int i = 0; i < col.Length; i++)
-            {
-                check[(int)col[i]]++;
-                if (check[(int)col[i]] > 1)
-                    cor = true;
-            }
+            breaker.NextColour(ref actual);
         }
     }
 }

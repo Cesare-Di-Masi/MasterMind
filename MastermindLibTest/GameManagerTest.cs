@@ -1,4 +1,5 @@
 using MastermindLib;
+
 namespace MastermindLibTest
 {
     //game manager di testo per copia incolla
@@ -36,25 +37,24 @@ namespace MastermindLibTest
         [TestMethod]
         public void GameManager_PlayerIsOn_SolutionCode_And_GuessIsCorrect()
         {
-            Colours[] playerCode = new Colours[4] {Colours.Red,Colours.Blue,Colours.Green,Colours.Blue};
+            Colours[] playerCode = new Colours[4] { Colours.Red, Colours.Blue, Colours.Green, Colours.Blue };
 
-            GameManager game = new GameManager(playerCode,false, 4, 4, 3, 1);
+            GameManager game = new GameManager(playerCode, false, 4, 4, 3, 1);
 
             GameStatus correct = game.EndOfTheTurn(playerCode);
             GameStatus expected = GameStatus.Won;
 
             Assert.AreEqual(expected, correct);
-
         }
 
         [TestMethod]
-         public void GameManager_BotIsOn_SolutionCode_And_GuessIsCorrect()
-        {            
+        public void GameManager_BotIsOn_SolutionCode_And_GuessIsCorrect()
+        {
             FixedColoursGenerator generator = new FixedColoursGenerator();
 
-            GameManager game = new GameManager(false, 4, 4, 3, 1,generator);
+            GameManager game = new GameManager(false, 4, 4, 3, 1, generator);
 
-            Colours[] sol = new Colours[4] {Colours.Red,Colours.Red,Colours.Red,Colours.Red};
+            Colours[] sol = new Colours[4] { Colours.Red, Colours.Red, Colours.Red, Colours.Red };
 
             GameStatus correct = game.EndOfTheTurn(sol);
             GameStatus expected = GameStatus.Won;
@@ -74,7 +74,6 @@ namespace MastermindLibTest
             GameStatus expected = GameStatus.Playing;
 
             Assert.AreEqual(expected, correct);
-
         }
 
         public void GameManager_BotIsOn_WrongGuess_LostGame()
@@ -89,8 +88,6 @@ namespace MastermindLibTest
             GameStatus expected = GameStatus.Lost;
 
             Assert.AreEqual(expected, correct);
-
         }
-
     }
 }
