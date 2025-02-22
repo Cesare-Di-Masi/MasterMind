@@ -15,33 +15,13 @@ using System.Windows.Shapes;
 namespace MasterMind_DiMasi_Senni
 {
     /// <summary>
-    /// Logica di interazione per PveWindows.xaml
+    /// Logica di interazione per Window1.xaml
     /// </summary>
-    public partial class PveWindows : Window
+    public partial class Window1 : Window
     {
-        public PveWindows()
+        public Window1()
         {
             InitializeComponent();
-        }
-
-        private void btnPVE_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnMedium_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
