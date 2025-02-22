@@ -123,6 +123,12 @@
             if (codeToCheck == null || codeToCheck.Length != _codeSolution.Length)
                 throw new ArgumentException("il codice tentato è illegale");
 
+            for(int i = 0; i<CodeLength; i++)
+            {
+                if ((int)codeToCheck[i] < 0 || (int)codeToCheck[i] > NColours - 1)
+                    throw new ArgumentException("il codice inserito è illegale, colori fuori dal range massimo");
+            }
+
             if (CheckGuess(codeToCheck))
             {
                 return GameStatus.Won;
@@ -140,6 +146,7 @@
         {
             bool correct = true;
             _rightPosition = 0;
+            _wrongPosition = 0;
             Colours[] dummy = codeToCheck;
             for (int i = 0; i < codeToCheck.Length; i++)
             {

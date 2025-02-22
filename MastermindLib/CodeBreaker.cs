@@ -34,11 +34,25 @@
         public void NextColour(ref Colours current)
         {
             int cos = (int)current;
+            Colours cs = 0;
 
-            if (cos >= _maxColour - 1)
+            if (cos == _maxColour - 1)
                 current = 0;
             else
                 current++;
         }
+
+        public void PreviousColour(ref Colours current)
+        {
+            int cos = (int)current;
+            Colours cs = 0;
+
+            if (cos == 0)
+                current = cs +_maxColour - 1;
+            else
+                current++;
+
+        }
+
     }
 }
