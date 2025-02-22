@@ -140,16 +140,45 @@
         {
             bool correct = true;
             _rightPosition = 0;
+            Colours[] dummy = codeToCheck;
             for (int i = 0; i < codeToCheck.Length; i++)
             {
                 if (codeToCheck[i] == _codeSolution[i])
                 {
-                    correct = true;
                     _rightPosition++;
+                    dummy[i] = Colours.Null;
+                }else
+                {
+                    correct = false;
                 }
-                i++;
             }
-            _isAllWrong = _rightPosition == 0;
+
+
+            bool found = false;
+            int counter = 0;
+            Colours ColourToCheck = Colours.Null;
+
+            for(int i = 0; i<dummy.Length; i++)
+            {
+                
+                ColourToCheck = _codeSolution[i];
+                
+                while(found == false && counter < dummy.Length)
+                {
+                    if (ColourToCheck == dummy[counter] && dummy[counter] != Colours.Null)
+                    {
+                        _wrongPosition++;
+                        dummy[counter] = Colours.Null;
+                        found = true;
+                    }
+                    counter++;
+                }
+
+                found = false;
+                counter = 0;
+            }
+
+            _isAllWrong = _rightPosition == 0 && _wrongPosition == 0;
 
             return correct;
         }

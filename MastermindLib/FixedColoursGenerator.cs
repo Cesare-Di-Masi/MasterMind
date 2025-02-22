@@ -10,7 +10,7 @@ namespace MastermindLib
     {
         public Colours[] generateCode()
         {
-            Colours[] result = new Colours[4] { Colours.Red, Colours.Red, Colours.Red, Colours.Red };
+            Colours[] result = new Colours[4] { Colours.Blue, Colours.Red, Colours.Blue, Colours.Red };
             return result;
         }
     }

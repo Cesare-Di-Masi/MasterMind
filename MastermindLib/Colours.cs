@@ -21,6 +21,7 @@
         Magenta = 16,
         Emerald = 17,
         Salmon = 18,
-        Magnolia = 19
+        Magnolia = 19,
+        Null = -1
     }
 }
