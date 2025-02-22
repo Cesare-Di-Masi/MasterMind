@@ -5,76 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MasterMind_DiMasi_Senni"
         mc:Ignorable="d"
-        Title="GameWindow" Height="700" Width="650">
-    <Window.Resources>
-        <Style x:Key="FocusVisual">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1" />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD" />
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070" />
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD" />
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1" />
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6" />
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B" />
-        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4" />
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5" />
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383" />
-        <Style TargetType="{x:Type Button}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}" />
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}" />
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="Padding" Value="1" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border CornerRadius="50"  x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
-                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}" />
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}" />
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}" />
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}" />
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}" />
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
-    <Grid>
-        <Label x:Name="lblButtonInfos" Content="Cliccare sul colore per cambiarlo" HorizontalAlignment="Left" Margin="366,602,0,0" VerticalAlignment="Top" />
-        <Rectangle x:Name="rctGreenBar1" Height="800" Width="60" HorizontalAlignment="Left" Margin="252,0,0,0" VerticalAlignment="Top" StrokeThickness="4" Fill="Green" />
-        <Rectangle x:Name="rctGreenBar2" Height="800" Width="60" HorizontalAlignment="Left" VerticalAlignment="Top" StrokeThickness="4" Fill="Green" />
-        <Rectangle x:Name="rctGreenBar3" Height="800" Width="60" HorizontalAlignment="Left" Margin="590,0,0,0" VerticalAlignment="Top" StrokeThickness="4" Fill="Green" />
-        <Button x:Name="btnSendTry" Height="40" Content="Manda messaggio" Margin="345,628,83,16" />
-        <Label x:Name="lblRightPosition" Content="Giuste" HorizontalAlignment="Left" Margin="60,602,0,0" VerticalAlignment="Top" Width="65" Height="36" />
-        <Label x:Name="lblWrongPosition" Content="pos sbagliata" HorizontalAlignment="Left" Margin="125,602,0,0" VerticalAlignment="Top" Width="68" RenderTransformOrigin="0.726,0.616" Height="36" />
-        <Label x:Name="lblIsAllWrong" Content="tutto errato" HorizontalAlignment="Left" Margin="193,602,0,0" VerticalAlignment="Top" Width="59" RenderTransformOrigin="0.726,0.616" Height="36" />
-        <Rectangle x:Name="rctBlackBarHorizontal" Height="60" Width="278" HorizontalAlignment="Left" Margin="312,542,0,0" VerticalAlignment="Top" StrokeThickness="4" Fill="Black" />
-        <Button x:Name="btnRoundButtonLayout" Height ="50" Width="50" Margin="325,542,274,87" Visibility="Hidden" />
-        <Button x:Name="btnReturnToMenu" Content="menu" Margin="60,658,525,0" />
-        <Button x:Name="btnRestartGame" Content="menu" Margin="177,658,407,0" />
+        Title="GameWindow" Height="600" Width="800">
+    <Grid Background="#FF9E622F" >
+        <Rectangle Stroke="#FF5D8A28" Margin="0,0,710,30" OpacityMask="Black" Fill="#FF5D8A28"/>
+        <Button x:Name="btnMenù" Content="Menù" HorizontalAlignment="Right" Margin="0,554,710,0" VerticalAlignment="Top" Height="30" Width="90" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF949494" BorderBrush="Black" Foreground="Black" RenderTransformOrigin="0.511,1.468" />
+        <Button x:Name="btnRiavvia" Content="Riavvia" HorizontalAlignment="Right" Margin="0,554,620,0" VerticalAlignment="Top" Height="30" Width="90" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF949494" BorderBrush="Black" Foreground="Black" />
+        <Rectangle Stroke="#FF5D8A28" Margin="355,0,355,0" OpacityMask="Black" Fill="#FF5D8A28"/>
+        <Label x:Name="lblGiuste" Content="Giuste " HorizontalAlignment="Left" Margin="90,525,0,30" Width="45" FontSize="15" FontFamily="Bernard MT Condensed" Foreground="Black" Background="#FF949494" BorderBrush="Black" />
+        <Label x:Name="lblPosSbagliato" Content="Posto sbagliato " HorizontalAlignment="Left" Margin="140,525,0,30" Width="107" FontSize="15" FontFamily="Bernard MT Condensed" Foreground="Black" Background="#FF949494"/>
+        <Label x:Name="lblTurSbagliato" Content="Tutto sbaglaito " HorizontalAlignment="Left" Margin="252,524,0,30" Width="98" FontSize="15" FontFamily="Bernard MT Condensed" Foreground="Black" Background="#FF949494" />
+        <Rectangle Stroke="#FF5D8A28" Margin="780,0,0,0" OpacityMask="Black" Fill="#FF5D8A28"/>
+        <Rectangle Stroke="Black" Margin="445,459,20,69" OpacityMask="Black" Fill="Black"/>
+        <Button x:Name="btnMenù1" Content="Invai la combinazione" HorizontalAlignment="Right" Margin="0,548,52,0" VerticalAlignment="Top" Height="30" Width="269" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF949494" BorderBrush="Black" Foreground="Black" RenderTransformOrigin="0.511,1.468" />
+        <Label x:Name="lblTurSbagliato1" Content="Cliccare sui colori per creare la combinazione" HorizontalAlignment="Left" Margin="472,513,0,41" Width="276" FontSize="15" FontFamily="Bernard MT Condensed" Foreground="Black" />
+        <Ellipse Stroke="Blue" Margin="450,464,301,74" Fill="Blue"/>
+        <Ellipse Stroke="Green" Margin="544,464,207,74" Fill="Green"/>
+        <Ellipse Stroke="Red" Margin="631,464,121,74" Fill="Red"/>
+        <Ellipse Stroke="Yellow" Margin="726,464,25,74" Fill="Yellow"/>
+        <Label x:Name="lblValoreGiuto1" Content="Giusto 0" HorizontalAlignment="Left" Margin="90,473,0,82" Width="56" FontSize="15" FontFamily="Bernard MT Condensed" Foreground="Black" RenderTransformOrigin="0.467,0.036" Background="#FF949494" />
+        <Label x:Name="lblRongValue1" Content="False" HorizontalAlignment="Left" Margin="252,473,0,82" Width="56" FontSize="15" FontFamily="Bernard MT Condensed" Foreground="Black" RenderTransformOrigin="0.467,0.036" Background="#FF949494" />
+        <Label x:Name="lblAlmostRong1" Content="Sabaglieto 0" HorizontalAlignment="Left" Margin="151,473,0,82" Width="96" FontSize="15" FontFamily="Bernard MT Condensed" Foreground="Black" RenderTransformOrigin="0.467,0.036" Background="#FF949494" />
     </Grid>
 </Window>
