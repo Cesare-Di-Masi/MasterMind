@@ -112,14 +112,14 @@ namespace MastermindProgram
                             sol[i] = col + int.Parse(Console.ReadLine());
 
                         }
-                        status = game.EndOfTheTurn(sol);
+                    }
                     catch (Exception)
-                    { 
+                    {
                         Console.WriteLine("qualcosa è andato storto, riprovare");
                         error = true;
                     }
                 } while (error == true);
-
+                status = game.EndOfTheTurn(sol);
                 Console.WriteLine($"è tutto sbagliato = {game.IsAllWrong}");
                 Console.WriteLine($"colori nella posizione giusta = {game.RightPosition}");
                 Console.WriteLine($"colori nella posizione sbagliata = {game.WrongPosition}");

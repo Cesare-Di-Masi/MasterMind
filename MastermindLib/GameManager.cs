@@ -129,6 +129,8 @@
                     throw new ArgumentException("il codice inserito è illegale, colori fuori dal range massimo");
             }
 
+            _nAttempts--;
+
             if (CheckGuess(codeToCheck))
             {
                 return GameStatus.Won;
