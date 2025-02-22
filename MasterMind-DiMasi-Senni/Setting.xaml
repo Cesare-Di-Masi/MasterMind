@@ -6,8 +6,10 @@
         xmlns:local="clr-namespace:MasterMind_DiMasi_Senni"
         mc:Ignorable="d"
         Title="Window1" Height="450" Width="800">
-    <Grid>
-        <Label x:Name="lblModality" Content="Seleziona il numero di colori &#xD;&#xA;Max 1-20&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,10,0,360" Width="212" FontSize="14" FontFamily="Bernard MT Condensed" VerticalAlignment="Top"/>
+    <Grid Background="#FF9E622F">
+        <Label x:Name="lblNumberColor" Content="Seleziona il numero di colori &#xD;&#xA;Max 1-20&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,10,0,0" Width="169" FontSize="14" FontFamily="Bernard MT Condensed" VerticalAlignment="Top"/>
+        <Slider Margin="10,58,621,353"/>
+        <Label x:Name="lblLenghtMessage" Content="Seleziona la lunghezza &#xD;&#xA;del messaggio" HorizontalAlignment="Left" Margin="10,102,0,0" Width="224" FontSize="14" FontFamily="Bernard MT Condensed" VerticalAlignment="Top" Height="50"/>
 
     </Grid>
 </Window>
