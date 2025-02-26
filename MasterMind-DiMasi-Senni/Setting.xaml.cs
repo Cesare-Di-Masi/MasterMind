@@ -17,10 +17,12 @@ namespace MasterMind_DiMasi_Senni
     /// <summary>
     /// Logica di interazione per Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class GameSettings : Window
     {
-        public Window1()
+        private bool _isColorBlind;
+        public GameSettings(bool isColorBlind)
         {
+            _isColorBlind = isColorBlind;
             InitializeComponent();
         }
     }

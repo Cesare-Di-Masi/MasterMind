@@ -1,8 +1,10 @@
 ﻿using MastermindLib;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,12 +15,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace MasterMind_DiMasi_Senni
 {
-    /// <summary>
-    /// Logica di interazione per GameWindow.xaml
-    /// </summary>
+   
+
     public partial class GameWindow : Window
     {
         GameManager game;
@@ -29,7 +31,88 @@ namespace MasterMind_DiMasi_Senni
         {
             InitializeComponent();
             game = _game;
-            
+            calculateRectangle();
+            calculateButton();
+        }
+
+        private int _maxWidth = 335;
+        private int _maxHeight = 491;
+        private int _tipWidth = 255;
+
+        private int _rectangleHeight, _rectangleSpacing;
+        private int _buttonSize, _buttonSpacing;
+
+        public void calculateRectangle()
+        {
+            _rectangleHeight = _maxHeight/game.NAttempts+1;
+            _rectangleSpacing = _rectangleHeight / game.NAttempts - 1;
+        }
+
+        public void calculateButton()
+        {
+            _buttonSize= _maxWidth/game.CodeLength+1;
+            _buttonSpacing = _buttonSize / game.CodeLength - 1;
+
+            if(_buttonSize > _rectangleHeight)
+            {
+                _buttonSize = _rectangleHeight;
+                _buttonSpacing = _buttonSize / game.CodeLength - 1;
+            }
+
+        }
+
+        //posizione di inizio per la generazione dei blocchi
+        private int _currentPosVertical = 89;
+        private int _currentPosHorizontal = 445;
+
+
+        private void newTurn()
+        {
+            generateRectangle();
+            _currentPosVertical -= _rectangleHeight;
+
+            for(int i=0; i<game.CodeLength;i++)
+            {
+                generateButton();
+                _currentPosVertical += _buttonSpacing;
+            }
+
+        }
+
+
+        private System.Windows.Shapes.Rectangle generateRectangle()
+        {
+            return new System.Windows.Shapes.Rectangle
+            {
+                Name = $"btnTurn{game.NAttempts}pos{_currentPosVertical}",
+                Width = _maxWidth,
+                Height = _rectangleHeight,
+                Fill = Brushes.Black,
+                Stroke = Brushes.Black,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
+                Style = FindResource("RoundButtonStyle") as Style
+            };
+        }
+
+        private Button generateButton()
+        {
+            return new Button
+            {
+                Name = $"btnTurn{game.NAttempts}pos{_currentPosHorizontal}",
+                Width = _buttonSize,
+                Height = _buttonSize,
+                Background = Brushes.Crimson,
+                BorderBrush = Brushes.Black,
+                BorderThickness = new Thickness(2),
+                Content = 1,
+                FontWeight = FontWeights.Bold,
+                FontSize = _buttonSize / 3,
+                Foreground = Brushes.White,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
+                Style = FindResource("RoundButtonStyle") as Style
+            };
         }
 
         //Prima cosa : determinare la dimensione e spaziatura di ogni rettangolo in maniera tale da definire la generazione del rettangolo (1 volta per partita)

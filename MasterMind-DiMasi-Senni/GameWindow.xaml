@@ -15,15 +15,16 @@
         <Label x:Name="lblPosSbagliato" Content="Posto sbagliato " HorizontalAlignment="Left" Margin="140,525,0,30" Width="107" FontSize="15" FontFamily="Bernard MT Condensed" Foreground="Black" Background="#FF949494"/>
         <Label x:Name="lblTurSbagliato" Content="Tutto sbaglaito " HorizontalAlignment="Left" Margin="252,524,0,30" Width="98" FontSize="15" FontFamily="Bernard MT Condensed" Foreground="Black" Background="#FF949494" />
         <Rectangle Stroke="#FF5D8A28" Margin="780,0,0,0" OpacityMask="Black" Fill="#FF5D8A28"/>
-        <Rectangle Stroke="Black" Margin="445,459,20,69" OpacityMask="Black" Fill="Black"/>
+        <Rectangle Stroke="Black" Margin="445,473,20,69" OpacityMask="Black" Fill="Black"/>
         <Button x:Name="btnMenù1" Content="Invai la combinazione" HorizontalAlignment="Right" Margin="0,548,52,0" VerticalAlignment="Top" Height="30" Width="269" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF949494" BorderBrush="Black" Foreground="Black" RenderTransformOrigin="0.511,1.468" />
         <Label x:Name="lblTurSbagliato1" Content="Cliccare sui colori per creare la combinazione" HorizontalAlignment="Left" Margin="472,513,0,41" Width="276" FontSize="15" FontFamily="Bernard MT Condensed" Foreground="Black" />
-        <Ellipse Stroke="Blue" Margin="450,464,301,74" Fill="Blue"/>
-        <Ellipse Stroke="Green" Margin="544,464,207,74" Fill="Green"/>
-        <Ellipse Stroke="Red" Margin="631,464,121,74" Fill="Red"/>
-        <Ellipse Stroke="Yellow" Margin="726,464,25,74" Fill="Yellow"/>
+        <Ellipse Stroke="Blue" Margin="445,473,310,69" Fill="Blue"/>
+        <Ellipse Stroke="Green" Margin="551,476,205,71" Fill="Green"/>
+        <Ellipse Stroke="Red" Margin="630,476,127,71" Fill="Red"/>
+        <Ellipse Stroke="Yellow" Margin="716,476,39,71" Fill="Yellow"/>
         <Label x:Name="lblValoreGiuto1" Content="Giusto 0" HorizontalAlignment="Left" Margin="90,473,0,82" Width="56" FontSize="15" FontFamily="Bernard MT Condensed" Foreground="Black" RenderTransformOrigin="0.467,0.036" Background="#FF949494" />
         <Label x:Name="lblRongValue1" Content="False" HorizontalAlignment="Left" Margin="252,473,0,82" Width="56" FontSize="15" FontFamily="Bernard MT Condensed" Foreground="Black" RenderTransformOrigin="0.467,0.036" Background="#FF949494" />
         <Label x:Name="lblAlmostRong1" Content="Sabaglieto 0" HorizontalAlignment="Left" Margin="151,473,0,82" Width="96" FontSize="15" FontFamily="Bernard MT Condensed" Foreground="Black" RenderTransformOrigin="0.467,0.036" Background="#FF949494" />
+        <Rectangle Stroke="Black" Margin="445,0,20,550" OpacityMask="Black" Fill="Black"/>
     </Grid>
 </Window>

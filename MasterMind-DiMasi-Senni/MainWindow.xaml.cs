@@ -10,7 +10,8 @@ namespace MasterMind_DiMasi_Senni
 
     public partial class MainWindow : Window
     {
-        public MainWindow()
+
+        public MainWindow(bool colorBlind)
         {
             InitializeComponent();
         }

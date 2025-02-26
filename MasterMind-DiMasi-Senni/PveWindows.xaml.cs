@@ -19,8 +19,10 @@ namespace MasterMind_DiMasi_Senni
     /// </summary>
     public partial class PveWindows : Window
     {
-        public PveWindows()
+        private bool _isColorBlind;
+        public PveWindows(bool isColorBlind)
         {
+            _isColorBlind = isColorBlind;
             InitializeComponent();
         }
 
