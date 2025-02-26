@@ -23,42 +23,68 @@ namespace MasterMind_DiMasi_Senni
 
     public partial class GameWindow : Window
     {
-        GameManager game;
+        GameManager currentGame;
+        CodeBreaker currentCodeBreaker;
+        List<Button> selectColoursList;
 
         double recHeight = 0, recWidth = 0;
 
-        public GameWindow(GameManager _game)
+        public GameWindow(GameManager game)
         {
             InitializeComponent();
-            game = _game;
+            currentGame = game;
             calculateRectangle();
             calculateButton();
+            selectColoursList = new List<Button>();
+            generateCodeSolver();
         }
+
+        
+        private void btn_Click_NextColour(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button && sender!=null)
+            {
+                Button button = sender as Button;
+                currentCodeBreaker.NextColour(ref int.Parse(button.Content));
+            }
+        }
+
 
         private int _maxWidth = 335;
         private int _maxHeight = 491;
         private int _tipWidth = 255;
+
+        private int _currentAttempt = 0;
 
         private int _rectangleHeight, _rectangleSpacing;
         private int _buttonSize, _buttonSpacing;
 
         public void calculateRectangle()
         {
-            _rectangleHeight = _maxHeight/game.NAttempts+1;
-            _rectangleSpacing = _rectangleHeight / game.NAttempts - 1;
+            _rectangleHeight = _maxHeight/currentGame.NAttempts+1;
+            _rectangleSpacing = _rectangleHeight / currentGame.NAttempts - 1;
         }
 
         public void calculateButton()
         {
-            _buttonSize= _maxWidth/game.CodeLength+1;
-            _buttonSpacing = _buttonSize / game.CodeLength - 1;
+            _buttonSize= _maxWidth/currentGame.CodeLength+1;
+            _buttonSpacing = _buttonSize / currentGame.CodeLength - 1;
 
             if(_buttonSize > _rectangleHeight)
             {
                 _buttonSize = _rectangleHeight;
-                _buttonSpacing = _buttonSize / game.CodeLength - 1;
+                _buttonSpacing = _buttonSize / currentGame.CodeLength - 1;
             }
 
+        }
+
+        public void generateCodeSolver()
+        {
+            for (int i = 0; i < currentGame.CodeLength; i++)
+            {
+                Button button = generateButton(i);
+                selectColoursList.Add(button);
+            }
         }
 
         //posizione di inizio per la generazione dei blocchi
@@ -71,20 +97,20 @@ namespace MasterMind_DiMasi_Senni
             generateRectangle();
             _currentPosVertical -= _rectangleHeight;
 
-            for(int i=0; i<game.CodeLength;i++)
+            for(int i=0; i<currentGame.CodeLength;i++)
             {
-                generateButton();
+                generateButton(i);
                 _currentPosVertical += _buttonSpacing;
             }
 
         }
 
-
+        //gestione delle coordinate da fare, non dovrebbe essere troppo complesso
         private System.Windows.Shapes.Rectangle generateRectangle()
         {
             return new System.Windows.Shapes.Rectangle
             {
-                Name = $"btnTurn{game.NAttempts}pos{_currentPosVertical}",
+                Name = $"btnTurn{_currentAttempt}",
                 Width = _maxWidth,
                 Height = _rectangleHeight,
                 Fill = Brushes.Black,
@@ -94,12 +120,12 @@ namespace MasterMind_DiMasi_Senni
                 Style = FindResource("RoundButtonStyle") as Style
             };
         }
-
-        private Button generateButton()
+        //gestione delle coordinate da fare, non dovrebbe essere troppo complesso
+        private Button generateButton(int currentPos)
         {
             return new Button
             {
-                Name = $"btnTurn{game.NAttempts}pos{_currentPosHorizontal}",
+                Name = $"btnTurn{_currentAttempt}pos{currentPos}",
                 Width = _buttonSize,
                 Height = _buttonSize,
                 Background = Brushes.Crimson,
