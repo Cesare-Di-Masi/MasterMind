@@ -8,8 +8,17 @@
         Title="Window1" Height="450" Width="800">
     <Grid Background="#FF9E622F">
         <Label x:Name="lblNumberColor" Content="Seleziona il numero di colori &#xD;&#xA;Max 1-20&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,10,0,0" Width="169" FontSize="14" FontFamily="Bernard MT Condensed" VerticalAlignment="Top"/>
-        <Slider Margin="10,58,621,353"/>
-        <Label x:Name="lblLenghtMessage" Content="Seleziona la lunghezza &#xD;&#xA;del messaggio" HorizontalAlignment="Left" Margin="10,102,0,0" Width="224" FontSize="14" FontFamily="Bernard MT Condensed" VerticalAlignment="Top" Height="50"/>
+        <Label x:Name="lblLenghtMessage" Content="Seleziona la lunghezza &#xD;&#xA;del messaggio" HorizontalAlignment="Left" Margin="10,88,0,0" Width="224" FontSize="14" FontFamily="Bernard MT Condensed" VerticalAlignment="Top" Height="50"/>
+        <Label x:Name="lblNumeroTentativi" Content="Seleziona il numero di tentativi &#xD;&#xA;da 1-15" HorizontalAlignment="Left" Margin="10,182,0,0" Width="224" FontSize="14" FontFamily="Bernard MT Condensed" VerticalAlignment="Top" Height="50"/>
+        <Label x:Name="lblComplessitàMessaggio" Content="Seleziona la complessità del &#xD;&#xA;messaggio da 1-10" HorizontalAlignment="Left" Margin="10,281,0,0" Width="224" FontSize="14" FontFamily="Bernard MT Condensed" VerticalAlignment="Top" Height="50"/>
+        <Slider Width="120" Margin="10,57,670,351"/>
+        <Slider Width="120" Margin="10,143,670,265"/>
+        <Slider Width="120" Margin="10,237,670,171"/>
+        <Slider Width="120" Margin="10,336,670,72"/>
+        <Button x:Name="btnTornaIndietro" Content="Torna indietro" Margin="9,386,0,20" HorizontalAlignment="Left" Width="121" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF5D8A28" BorderBrush="Black" Foreground="White"/>
+        <Button x:Name="btnConferma" Content="Conferma" Margin="379,52,0,272" HorizontalAlignment="Left" Width="289" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF5D8A28" BorderBrush="Black" Foreground="White"/>
+        <Button x:Name="btnGioca" Content="Gioca" Margin="379,237,0,87" HorizontalAlignment="Left" Width="289" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF5D8A28" BorderBrush="Black" Foreground="White"/>
 
     </Grid>
 </Window>
+    
