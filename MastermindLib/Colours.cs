@@ -14,14 +14,6 @@
         Scarlet = 9,
         Teal = 10,
         Indigo = 11,
-        Sapphire = 12,
-        Gold = 13,
-        Fuchsia = 14,
-        Lillach = 15,
-        Magenta = 16,
-        Emerald = 17,
-        Salmon = 18,
-        Magnolia = 19,
         Null = -1
     }
 }

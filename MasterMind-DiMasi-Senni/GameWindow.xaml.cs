@@ -19,13 +19,29 @@ using System.Xml.Linq;
 
 namespace MasterMind_DiMasi_Senni
 {
-   
+    //Prima cosa : determinare la dimensione e spaziatura di ogni rettangolo in maniera tale da definire la generazione del rettangolo (1 volta per partita)
+    //Seconda cosa: generare il rettangolo (penso chiamato dalla funzione di generazione dei bottoni)
+    //terza cosa: determinare dimensione e spaziatura dei bottoni per definire la generazione del rettangolo (1 volta deve essere richiamata come funzione per partita)
+    //quarta cosa: generare i bottoni con nmi che abbiano ovviamente un senso con anche dei valori di default
+    //quinta cosa: creare una funzione che richiami il passo 2 e 4
+    //sesta cosa: spostare poi il tentativo in avanti nello spazio (possibile idea di generare tutto quanto prima che inizi la partita e poi spostare i valori)
+    //giocare
 
     public partial class GameWindow : Window
     {
+
+        int startVertical = 89;
+        int startHorizontal = 445;
+
         GameManager currentGame;
+        //codebreaker, il gioco al momento non richiede alcun dato, però ci servono le funzioni
         CodeBreaker currentCodeBreaker;
+
+        //lista di bottoni per il gioco
         List<Button> selectColoursList;
+
+        //tutti i tentativi precedenti
+        List<List<Ellipse>> allAttempts = new List<List<Ellipse>> ();
 
         double recHeight = 0, recWidth = 0;
 
@@ -36,35 +52,31 @@ namespace MasterMind_DiMasi_Senni
             calculateRectangle();
             calculateButton();
             selectColoursList = new List<Button>();
+            //richiamo la funzione di generazione dei bottoni solo all'inizio della partita
             generateCodeSolver();
         }
 
-        
-        private void btn_Click_NextColour(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button && sender!=null)
-            {
-                Button button = sender as Button;
-                currentCodeBreaker.NextColour(ref int.Parse(button.Content));
-            }
-        }
-
-
+        //dimensioni definite dal campo di gioco
         private int _maxWidth = 335;
         private int _maxHeight = 491;
         private int _tipWidth = 255;
 
+        //counter per aiutarci a definire i nomi dei cerchi che devono comparire
         private int _currentAttempt = 0;
 
+        //spaziatura e dimensioni dei rettangoli
         private int _rectangleHeight, _rectangleSpacing;
+        //spaziatura e dimensione dei bottoni e cerchi 
         private int _buttonSize, _buttonSpacing;
 
+        //calcolo le dimensioni che ogni rettangolo deve avere e la spaziatura fra di loro
         public void calculateRectangle()
         {
             _rectangleHeight = _maxHeight/currentGame.NAttempts+1;
             _rectangleSpacing = _rectangleHeight / currentGame.NAttempts - 1;
         }
 
+        //calcolo le dimensioni di ogni bottone che deve essere all'interno del rettangolo e le spaziature, con i limiti dell'altezza del rettangolo
         public void calculateButton()
         {
             _buttonSize= _maxWidth/currentGame.CodeLength+1;
@@ -77,7 +89,8 @@ namespace MasterMind_DiMasi_Senni
             }
 
         }
-
+        
+        //genero la "zona" di gioco dove creao il codice da provare
         public void generateCodeSolver()
         {
             for (int i = 0; i < currentGame.CodeLength; i++)
@@ -91,63 +104,58 @@ namespace MasterMind_DiMasi_Senni
         private int _currentPosVertical = 89;
         private int _currentPosHorizontal = 445;
 
-
+        //nuovo turno quindi vai a resettare il tutto e costruisci a schermo il tentativo precedente
         private void newTurn()
         {
-            generateRectangle();
+            generateRectangle(_currentAttempt);
             _currentPosVertical -= _rectangleHeight;
 
             for(int i=0; i<currentGame.CodeLength;i++)
             {
-                generateButton(i);
-                _currentPosVertical += _buttonSpacing;
+                //genero la nuova riga di cerchi (tentativo precedente)
+                generateEllipse(_currentAttempt,i);
+                _currentPosHorizontal += _buttonSpacing;
             }
-
+            _currentPosHorizontal = startHorizontal;
         }
+
+
+        private void resetButton()
+        {
+            for (int i = 0; i < currentGame.CodeLength; i++)
+            {
+                //resetto la board dei bottoni al colore rosso
+                selectColoursList[i].Content = "1";
+            }
+        }
+
 
         //gestione delle coordinate da fare, non dovrebbe essere troppo complesso
-        private System.Windows.Shapes.Rectangle generateRectangle()
+        private System.Windows.Shapes.Rectangle generateRectangle(int verticalPos)
         {
-            return new System.Windows.Shapes.Rectangle
-            {
-                Name = $"btnTurn{_currentAttempt}",
-                Width = _maxWidth,
-                Height = _rectangleHeight,
-                Fill = Brushes.Black,
-                Stroke = Brushes.Black,
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Style = FindResource("RoundButtonStyle") as Style
-            };
+            throw new NotImplementedException();
         }
+
+        //questi sono i bottoni per la zona di gioco
         //gestione delle coordinate da fare, non dovrebbe essere troppo complesso
         private Button generateButton(int currentPos)
         {
-            return new Button
-            {
-                Name = $"btnTurn{_currentAttempt}pos{currentPos}",
-                Width = _buttonSize,
-                Height = _buttonSize,
-                Background = Brushes.Crimson,
-                BorderBrush = Brushes.Black,
-                BorderThickness = new Thickness(2),
-                Content = 1,
-                FontWeight = FontWeights.Bold,
-                FontSize = _buttonSize / 3,
-                Foreground = Brushes.White,
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Style = FindResource("RoundButtonStyle") as Style
-            };
+           throw new NotImplementedException();
         }
 
-        //Prima cosa : determinare la dimensione e spaziatura di ogni rettangolo in maniera tale da definire la generazione del rettangolo (1 volta per partita)
-        //Seconda cosa: generare il rettangolo (penso chiamato dalla funzione di generazione dei bottoni)
-        //terza cosa: determinare dimensione e spaziatura dei bottoni per definire la generazione del rettangolo (1 volta deve essere richiamata come funzione per partita)
-        //quarta cosa: generare i bottoni con nmi che abbiano ovviamente un senso con anche dei valori di default
-        //quinta cosa: creare una funzione che richiami il passo 2 e 4
-        //sesta cosa: spostare poi il tentativo in avanti nello spazio (possibile idea di generare tutto quanto prima che inizi la partita e poi spostare i valori)
-        //giocare
+        private Ellipse generateEllipse(int verticalPos, int horizontalPos)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        private void generateRectangles()
+        {
+           Button btn = new Button();
+            btn.Content = "bottone generato da codice";
+           
+           
+        }
 
     }
 
@@ -157,34 +165,8 @@ namespace MasterMind_DiMasi_Senni
     //primo tentativo (probabilmente fallimentare) per la generazione del turno
 
 
-    /*private void generateRectangles()
-        {
-            double maxHeight = 600; // Get current height of the window
-            double totalAvailableHeight = maxHeight - (game.NAttempts - 1) * 1.0; // Space left after spacing
-            double rectHeight = Math.Max(10, totalAvailableHeight / game.NAttempts); // Ensure a minimum height
-            double rectWidth = rectHeight * 1.5; // Aspect ratio 1.5:1 (adjust as needed)
-
-            for (int i = 0; i < game.NAttempts; i++)
-            {
-                Rectangle rect;
-       
-                rect = new Rectangle
-                {
-                    Fill = Brushes.Crimson,
-                    Stroke = Brushes.Black,
-                    StrokeThickness = 2
-                };               
-
-                rect.Width = rectWidth;
-                rect.Height = rectHeight;
-
-                double y = i * (rectHeight + 1.0); // Adjust position
-
-                Canvas.SetLeft(rect, 50); // Keep a fixed X position
-                Canvas.SetTop(rect, y);
-            }
-        }
-
+   
+    /*
         private void generateButtons()
         {
             // Determine the number of buttons that will fit in the available width

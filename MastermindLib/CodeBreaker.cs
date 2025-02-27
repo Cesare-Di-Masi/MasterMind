@@ -31,9 +31,9 @@
             }
         }
 
-        public void NextColour(ref int current)
+        public void NextColour(ref Colours current)
         {
-            int cos = current;
+            int cos = (int)current;
             Colours cs = 0;
 
             if (cos == _maxColour - 1)
@@ -42,13 +42,14 @@
                 current++;
         }
 
-        public void PreviousColour(ref int current)
+        public void PreviousColour(ref Colours current)
         {
             int cos = (int)current;
             
+            Colours cs = 0;
 
             if (cos == 0)
-                current =_maxColour - 1;
+                current =cs +_maxColour - 1;
             else
                 current++;
 
