@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MastermindLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,28 +21,30 @@ namespace MasterMind_DiMasi_Senni
     public partial class PveWindows : Window
     {
         private bool _isColorBlind;
+        GameManager game;
+
         public PveWindows(bool isColorBlind)
         {
-            _isColorBlind = isColorBlind;
             InitializeComponent();
+            _isColorBlind = isColorBlind;
         }
 
-        private void btnPVE_Click(object sender, RoutedEventArgs e)
+        private void btnMenù_Click(object sender, RoutedEventArgs e)
         {
-
+            var a = new MainWindow();
+            a.Show();
+            this.Close();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnEasy_Click(object sender, RoutedEventArgs e)
         {
-
+            game = new GameManager(_isColorBlind, 4, 4,5,1);
+            Window Game = new GameWindow(game);
+            Game.Show();
+            this.Close();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnMedium_Click(object sender, RoutedEventArgs e)
+        private void btnDifficult_Click(object sender, RoutedEventArgs e)
         {
 
         }

@@ -17,9 +17,9 @@ namespace MasterMind_DiMasi_Senni
     /// <summary>
     /// Logica di interazione per Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class RulesBook : Window
     {
-        public Window1()
+        public RulesBook()
         {
             InitializeComponent();
         }

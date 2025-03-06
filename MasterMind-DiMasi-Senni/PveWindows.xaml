@@ -7,10 +7,11 @@
         mc:Ignorable="d"
         Title="PveWindows" Height="450" Width="800">
     <Grid Background="#FF9E622F">
-        <Label x:Name="lblModality" Content="Selezionare la modalità di&#xD;&#xA; gioco contro il computer " HorizontalAlignment="Center" Margin="0,10,0,360" Width="212" FontSize="20" FontFamily="Bernard MT Condensed" Foreground="White" />
-        <Button x:Name="btnDifficult" Content="DIFFICILE (10 colori)" HorizontalAlignment="Right" Margin="50,148,50,0" VerticalAlignment="Top" Height="56" Width="172" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF5D8A28" BorderBrush="Black" Foreground="White" />
-        <Button x:Name="btnEasy" Content="FACILE(4 COLORI)" Margin="50,148,0,229" HorizontalAlignment="Left" Width="172" FontSize="15" FontFamily="Bernard MT Condensed" Click="Button_Click_1" BorderBrush="Black" Background="#FF5D8A28" Foreground="White"/>
+        <Label x:Name="lblModality" Content="Selezionare la modalità di&#xD;&#xA; gioco contro il computer " HorizontalAlignment="Center" Margin="0,27,0,310" Width="312" FontSize="30" FontFamily="Bernard MT Condensed" Foreground="White" />
+        <Button x:Name="btnDifficult" Content="DIFFICILE (10 colori)" HorizontalAlignment="Right" Margin="50,148,50,0" VerticalAlignment="Top" Height="56" Click="btnDifficult_Click" Width="172" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF5D8A28" BorderBrush="Black" Foreground="White" />
+        <Button x:Name="btnEasy" Content="FACILE(4 COLORI)" Margin="50,148,0,229" HorizontalAlignment="Left" Width="172" FontSize="15" FontFamily="Bernard MT Condensed" Click="btnEasy_Click" BorderBrush="Black" Background="#FF5D8A28" Foreground="White"/>
         <Button x:Name="btnMedium" Content="MEDIA(6 COLORI)" Margin="0,148,0,230" HorizontalAlignment="Center" Width="172" FontSize="15" FontFamily="Bernard MT Condensed" Click="btnMedium_Click" Background="#FF5D8A28" BorderBrush="Black" Foreground="White">
+
 
             <Button.RenderTransform>
                 <TransformGroup>
@@ -22,6 +23,7 @@
             </Button.RenderTransform>
         </Button>
         <Button x:Name="btnPersonalized" Content="PERSONALIZZATE" Margin="0,277,0,100" HorizontalAlignment="Center" Width="172" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF5D8A28" BorderBrush="Black" Foreground="White"/>
+        <Button x:Name="btnMenù" Content="Menù" Margin="28,341,0,53" HorizontalAlignment="Left" Width="162" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF5D8A28" BorderBrush="Black" Foreground="White" Click="btnMenù_Click"/>
 
     </Grid>
 </Window>
