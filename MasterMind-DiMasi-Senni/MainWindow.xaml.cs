@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq.Expressions;
+using System.Windows;
 using MastermindLib;
 
 namespace MasterMind_DiMasi_Senni
@@ -23,10 +24,17 @@ namespace MasterMind_DiMasi_Senni
 
         private void btnPVE_Click(object sender, RoutedEventArgs e)
         {
+            var a = new PveWindows();
+            a.Show();
+            this.Close();
+
         }
 
         private void btnRule_Click(object sender, RoutedEventArgs e)
         {
+            var a = new RulesBook ();
+            a.Show();
+            this.Close();
         }
     }
 }
