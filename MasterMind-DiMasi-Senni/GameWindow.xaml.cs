@@ -44,7 +44,7 @@ namespace MasterMind_DiMasi_Senni
         List<List<Ellipse>> allAttempts = new List<List<Ellipse>> ();
 
         double recHeight = 0, recWidth = 0;
-
+        //✔
         public GameWindow(GameManager game)
         {
             InitializeComponent();
@@ -69,6 +69,7 @@ namespace MasterMind_DiMasi_Senni
         //spaziatura e dimensione dei bottoni e cerchi 
         private int _buttonSize, _buttonSpacing;
 
+        //✔
         //calcolo le dimensioni che ogni rettangolo deve avere e la spaziatura fra di loro
         public void calculateRectangle()
         {
@@ -76,6 +77,7 @@ namespace MasterMind_DiMasi_Senni
             _rectangleSpacing = _rectangleHeight / currentGame.NAttempts - 1;
         }
 
+        //✔
         //calcolo le dimensioni di ogni bottone che deve essere all'interno del rettangolo e le spaziature, con i limiti dell'altezza del rettangolo
         public void calculateButton()
         {
@@ -89,12 +91,14 @@ namespace MasterMind_DiMasi_Senni
             }
 
         }
-        
-        //genero la "zona" di gioco dove creao il codice da provare
+
+        //✔
+        //genero la "zona" di gioco dove creo il codice da provare
         public void generateCodeSolver()
         {
             for (int i = 0; i < currentGame.CodeLength; i++)
             {
+                //fare il generatore di bottoni
                 Button button = generateButton(i);
                 selectColoursList.Add(button);
             }
@@ -104,8 +108,9 @@ namespace MasterMind_DiMasi_Senni
         private int _currentPosVertical = 89;
         private int _currentPosHorizontal = 445;
 
+        //✔
         //nuovo turno quindi vai a resettare il tutto e costruisci a schermo il tentativo precedente
-        private void newTurn()
+        private void newTurn(object sender,EventArgs e)
         {
             generateRectangle(_currentAttempt);
             _currentPosVertical -= _rectangleHeight;
@@ -113,22 +118,166 @@ namespace MasterMind_DiMasi_Senni
             for(int i=0; i<currentGame.CodeLength;i++)
             {
                 //genero la nuova riga di cerchi (tentativo precedente)
-                generateEllipse(_currentAttempt,i);
+                generateEllipse(_currentAttempt, i, selectColoursList[i]);
+                //mi muovo a destra di tot spazio
                 _currentPosHorizontal += _buttonSpacing;
             }
             _currentPosHorizontal = startHorizontal;
         }
 
-
+        //✔
         private void resetButton()
         {
             for (int i = 0; i < currentGame.CodeLength; i++)
             {
                 //resetto la board dei bottoni al colore rosso
                 selectColoursList[i].Content = "1";
+                ShowButtonColours(selectColoursList[i]);
             }
         }
 
+        //✔
+        private void nextColour(object sender, EventArgs e)
+        {
+            if (sender is System.Windows.Controls.Button) 
+            {
+                Button btn = sender as Button;
+
+                if (btn == null)
+                    btn.Content = 0;
+
+                int curr = int.Parse((string)btn.Content);
+
+                Colours cl = Colours.Red + curr;
+
+                currentCodeBreaker.NextColour(ref cl);
+
+                btn.Content = (int)cl;
+
+                ShowButtonColours(btn);
+
+            }
+        }
+        //✔
+        private void previousColour(object sender, EventArgs e)
+        {
+            if (sender is Button)
+            {
+                Button btn = sender as Button;
+
+                if (btn == null)
+                    btn.Content = 0;
+
+                int curr = int.Parse((string)btn.Content);
+
+                Colours cl = Colours.Red+curr;
+
+                currentCodeBreaker.PreviousColour(ref cl);
+
+                btn.Content = (int)cl;
+
+                ShowButtonColours(btn);
+
+            }
+        }
+
+        //✔
+        private void ShowButtonColours(Button btn)
+        {
+            int cur = int.Parse((string)btn.Content);
+            switch (cur) 
+            {
+                case 0:
+                    btn.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 0, 0));
+                    break;
+                case 1:
+                    btn.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 255));
+                    break;
+                case 2:
+                    btn.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 128, 0));
+                    break;
+                case 3:
+                    btn.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 0));
+                    break;
+                case 4:
+                    btn.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(128, 0, 128));
+                    break;
+                case 5:
+                    btn.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 165, 0));
+                    break;
+                case 6:
+                    btn.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 192, 203));
+                    break;
+                case 7:
+                    btn.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 255, 255));
+                    break;
+                case 8:
+                    btn.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 255, 0));
+                    break;
+                case 9:
+                    btn.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 36, 0));
+                    break;
+                case 10:
+                    btn.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 128, 128));
+                    break;
+                case 11:
+                    btn.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(75, 0, 130));
+                    break;
+                default:
+                    btn.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
+                    break;
+
+            }
+            
+        }
+
+        private void ShowEllipseColour(Ellipse ell)
+        {
+            int cur = int.Parse((string)ell.);
+            switch (cur)
+            {
+                case 0:
+                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 0, 0));
+                    break;
+                case 1:
+                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 255));
+                    break;
+                case 2:
+                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 128, 0));
+                    break;
+                case 3:
+                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 0));
+                    break;
+                case 4:
+                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(128, 0, 128));
+                    break;
+                case 5:
+                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 165, 0));
+                    break;
+                case 6:
+                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 192, 203));
+                    break;
+                case 7:
+                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 255, 255));
+                    break;
+                case 8:
+                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 255, 0));
+                    break;
+                case 9:
+                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 36, 0));
+                    break;
+                case 10:
+                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 128, 128));
+                    break;
+                case 11:
+                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(75, 0, 130));
+                    break;
+                default:
+                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
+                    break;
+
+            }
+        }
 
         //gestione delle coordinate da fare, non dovrebbe essere troppo complesso
         private System.Windows.Shapes.Rectangle generateRectangle(int verticalPos)
@@ -143,9 +292,12 @@ namespace MasterMind_DiMasi_Senni
            throw new NotImplementedException();
         }
 
-        private Ellipse generateEllipse(int verticalPos, int horizontalPos)
+        //btnToCopy mi dice i valori da copiare (colore principalmente)
+        private Ellipse generateEllipse(int verticalPos, int horizontalPos,Button btnToCopy)
         {
             throw new NotImplementedException();
+            //chiama la seguente funzione : ShowEllipseColour(ellipse ell)
+            //in modo da dargli il colore
         }
 
 
@@ -153,7 +305,6 @@ namespace MasterMind_DiMasi_Senni
         {
            Button btn = new Button();
             btn.Content = "bottone generato da codice";
-           
            
         }
 
