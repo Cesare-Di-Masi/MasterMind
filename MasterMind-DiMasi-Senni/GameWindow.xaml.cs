@@ -155,7 +155,7 @@ namespace MasterMind_DiMasi_Senni
                 for (int i = 0; i < currentGame.CodeLength; i++)
                 {
                     //genero la nuova riga di cerchi (tentativo precedente)
-                    allAttempts[_currentAttempt].Add(generateEllipse(ellypsePoint, selectColoursList[i]));
+                    allAttempts[_currentAttempt].Add(generateEllipse(ellypsePoint, selectColoursList[i],_currentAttempt,i));
                     //mi muovo a destra di tot spazio
                     ellypsePoint.X += _buttonSpacing;
                 }
@@ -293,49 +293,48 @@ namespace MasterMind_DiMasi_Senni
             
         }
 
-        private void ShowEllipseColour(Ellipse ell,Button btn)
+        private void ShowEllipseColour(Ellipse ell,int colour)
         {
-            int cur = int.Parse((string)btn.Content);
-            switch (cur)
+            switch (colour)
             {
                 case 0:
-                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 0, 0));
+                    ell.Fill = Brushes.Red;
                     break;
                 case 1:
-                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 255));
+                    ell.Fill = Brushes.Blue;
                     break;
                 case 2:
-                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 128, 0));
+                    ell.Fill = Brushes.Green;
                     break;
                 case 3:
-                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 0));
+                    ell.Fill = Brushes.Yellow;
                     break;
                 case 4:
-                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(128, 0, 128));
+                    ell.Fill = Brushes.Purple;
                     break;
                 case 5:
-                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 165, 0));
+                    ell.Fill = Brushes.Orange;
                     break;
                 case 6:
-                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 192, 203));
+                    ell.Fill = Brushes.Pink;
                     break;
                 case 7:
-                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 255, 255));
+                    ell.Fill = Brushes.Cyan;
                     break;
                 case 8:
-                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 255, 0));
+                    ell.Fill = Brushes.Cyan;
                     break;
-                case 9:
+                case 9://scarletto
                     ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 36, 0));
                     break;
                 case 10:
-                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 128, 128));
+                    ell.Fill = Brushes.Teal;
                     break;
                 case 11:
-                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(75, 0, 130));
+                    ell.Fill = Brushes.Indigo;
                     break;
                 default:
-                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
+                    ell.Fill = Brushes.Black;
                     break;
 
             }
@@ -364,8 +363,7 @@ namespace MasterMind_DiMasi_Senni
         private Button generateButton(int currentPos,System.Windows.Point currPoint)
         {
            Button btn = new Button();
-
-            btn.Name = $"{currentPos}SolverButton";
+            //btn.Name = $"{currentPos}SolverButton";
             btn.Width = _buttonSize;
             btn.Height = _buttonSize;
             btn.Background = Brushes.Red;
@@ -383,15 +381,34 @@ namespace MasterMind_DiMasi_Senni
 
 
         //btnToCopy mi dice i valori da copiare (colore principalmente)
-        private Ellipse generateEllipse(System.Windows.Point currPoint,Button btnToCopy)
+        private Ellipse generateEllipse(System.Windows.Point currPoint,Button btnToCopy,int currentAttempt,int currentPos)
         {
-            throw new NotImplementedException();
+            Ellipse ell = new Ellipse();
+
+            ell.Name = $"{currentAttempt}Ellipse{currentPos}";
+            ell.Width = _buttonSize;
+            ell.Height = _buttonSize;
+            ell.Fill = btnToCopy.Background;
+            ell.PointFromScreen(currPoint);
+            ell.Visibility = System.Windows.Visibility.Visible;
+
+            return ell;
+
         }
 
         //per generare la soluzione in cima alla pagina
         private Ellipse generateEllipse(System.Windows.Point currPoint, Colours colourToCopy)
         {
-            throw new NotImplementedException();
+            Ellipse ell = new Ellipse();
+
+            ell.Name = "SolutionEll";
+            ell.Width = solveCodeSize;
+            ell.Height = solveCodeSize;
+            ShowEllipseColour(ell,(int)colourToCopy);
+            ell.PointFromScreen(currPoint);
+            ell.Visibility = System.Windows.Visibility.Visible;
+
+            return ell;
         }
 
         //genera ad ogni turno i suggerimenti del gioco mastermind
