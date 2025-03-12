@@ -1,123 +1,59 @@
 ﻿using MastermindLib;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Xml.Linq;
+using System.Windows;
+using System.Windows.Input;
+using System;
 
 namespace MasterMind_DiMasi_Senni
 {
-    //Prima cosa : determinare la dimensione e spaziatura di ogni rettangolo in maniera tale da definire la generazione del rettangolo (1 volta per partita)
-    //Seconda cosa: generare il rettangolo (penso chiamato dalla funzione di generazione dei bottoni)
-    //terza cosa: determinare dimensione e spaziatura dei bottoni per definire la generazione del rettangolo (1 volta deve essere richiamata come funzione per partita)
-    //quarta cosa: generare i bottoni con nmi che abbiano ovviamente un senso con anche dei valori di default
-    //quinta cosa: creare una funzione che richiami il passo 2 e 4
-    //sesta cosa: spostare poi il tentativo in avanti nello spazio (possibile idea di generare tutto quanto prima che inizi la partita e poi spostare i valori)
-    //giocare
-
     public partial class GameWindow : Window
     {
-
         int startVertical = 89;
         int startHorizontal = 445;
         int _tipsSize = 86;
 
         GameManager currentGame;
-        //codebreaker, il gioco al momento non richiede alcun dato, però ci servono le funzioni
         CodeBreaker currentCodeBreaker;
+        List<Button> selectColoursList = new List<Button>();
+        List<List<Ellipse>> allAttempts = new List<List<Ellipse>>();
+        List<List<Button>> allTips = new List<List<Button>>();
 
-        //lista di bottoni per il gioco
-        List<Button> selectColoursList;
+        private int _maxWidth = 335;
+        private int _maxHeight = 491;
+        private int _currentAttempt = 0;
+        private int _rectangleHeight, _rectangleSpacing;
+        private int _buttonSize, _buttonSpacing;
+        private int _currentPosVertical = 89;
+        private int _currentPosHorizontal = 445;
+        private int solveCodeVerticalPosition = 20;
+        private int solveCodeHorizontalPosition = 445;
+        private int solveCodeSize = 20;
 
-        //tutti i tentativi precedenti
-        List<List<Ellipse>> allAttempts;
-
-        List<List<Button>> allTips = new List<List<Button>> ();
-
-        double recHeight = 0, recWidth = 0;
-        //✔
         public GameWindow(GameManager game)
         {
             InitializeComponent();
             currentGame = game;
             calculateRectangle();
             calculateButton();
-            selectColoursList = new List<Button>();
-
-            allAttempts = new List<List<Ellipse>>(game.NAttempts);
-            allTips = new List<List<Button>>(game.NAttempts);
-
-            //richiamo la funzione di generazione dei bottoni solo all'inizio della partita
             generateCodeSolver();
         }
 
-        //dimensioni definite dal campo di gioco
-        private int _maxWidth = 335;
-        private int _maxHeight = 491;
-
-        //counter per aiutarci a definire i nomi dei cerchi che devono comparire
-        private int _currentAttempt = 0;
-
-        //spaziatura e dimensioni dei rettangoli
-        private int _rectangleHeight, _rectangleSpacing;
-        //spaziatura e dimensione dei bottoni e cerchi 
-        private int _buttonSize, _buttonSpacing;
-
-        private int _currentPosVertical = 89;
-        private int _currentPosHorizontal = 445;
-
-        //dati per mostrare la soluzione
-        private int solveCodeVerticalPosition=20;
-        private int solveCodeHorizontalPosition=445;
-        private int solveCodeSize = 20;
-
-
-        //✔
-        //calcolo le dimensioni che ogni rettangolo deve avere e la spaziatura fra di loro
         public void calculateRectangle()
         {
-            _rectangleHeight = _maxHeight/currentGame.NAttempts+1;
-            _rectangleSpacing = _rectangleHeight / currentGame.NAttempts - 1;
+            _rectangleHeight = _maxHeight / (currentGame.NAttempts + 1);
+            _rectangleSpacing = _rectangleHeight / (currentGame.NAttempts + 1);
         }
 
-        //✔
-        //calcolo le dimensioni di ogni bottone che deve essere all'interno del rettangolo e le spaziature, con i limiti dell'altezza del rettangolo
         public void calculateButton()
         {
-            _buttonSize= _maxWidth/currentGame.CodeLength+1;
-            _buttonSpacing = _buttonSize / currentGame.CodeLength - 1;
-
-            if(_buttonSize > _rectangleHeight)
+            _buttonSize = _maxWidth / (currentGame.CodeLength + 1);
+            _buttonSpacing = _buttonSize / (currentGame.CodeLength + 1);
+            if (_buttonSize > _rectangleHeight)
             {
                 _buttonSize = _rectangleHeight;
-                _buttonSpacing = _buttonSize / currentGame.CodeLength - 1;
-            }
-
-        }
-
-        //✔
-        //genero la "zona" di gioco dove creo il codice da provare
-        public void generateCodeSolver()
-        {
-            System.Windows.Point solverPoint = new System.Windows.Point(_currentPosHorizontal,_currentPosVertical);
-            for (int i = 0; i < currentGame.CodeLength; i++)
-            {
-                //fare il generatore di bottoni
-                Button button = generateButton(i,solverPoint);
-                selectColoursList.Add(button);
+                _buttonSpacing = _buttonSize / (currentGame.CodeLength + 1);
             }
         }
 
@@ -126,38 +62,23 @@ namespace MasterMind_DiMasi_Senni
             newTurn();
         }
 
-        private Colours[] buttonToCode()
-        {
-            Colours[] code = new Colours[currentGame.CodeLength];
-
-            for(int i = 0;i < currentGame.CodeLength;i++)
-            {
-                code[i] = Colours.Red +int.Parse((string)selectColoursList[i].Content);
-            }
-            return code;
-        }
-
-
-        //✔
-        //nuovo turno quindi vai a resettare il tutto e costruisci a schermo il tentativo precedente
         private void newTurn()
         {
             GameStatus status = currentGame.EndOfTheTurn(buttonToCode());
 
             if (status == GameStatus.Playing)
             {
-                System.Windows.Point ellypsePoint = new System.Windows.Point(_currentPosHorizontal, _currentPosVertical);
+                System.Windows.Point ellipsePoint = new System.Windows.Point(_currentPosHorizontal, _currentPosVertical);
                 System.Windows.Point tipsPoint = new System.Windows.Point(30, _currentPosVertical);
 
-                //allineamento a sinistra del punto
-                generateRectangle(ellypsePoint);
+                // Generate the row rectangle
+                generateRectangle(ellipsePoint);
 
                 for (int i = 0; i < currentGame.CodeLength; i++)
                 {
-                    //genero la nuova riga di cerchi (tentativo precedente)
-                    allAttempts[_currentAttempt].Add(generateEllipse(ellypsePoint, selectColoursList[i],_currentAttempt,i));
-                    //mi muovo a destra di tot spazio
-                    ellypsePoint.X += _buttonSpacing;
+                    // Generate the new row of ellipses (previous attempt)
+                    allAttempts[_currentAttempt].Add(generateEllipse(ellipsePoint, selectColoursList[i], _currentAttempt, i));
+                    ellipsePoint.X += _buttonSpacing; // Move right for next circle
                 }
 
                 for (int i = 0; i < 3; i++)
@@ -166,88 +87,86 @@ namespace MasterMind_DiMasi_Senni
                     generateTips(i, tipsPoint);
                 }
 
-                _currentPosVertical -= _rectangleSpacing;
-            }else 
+                _currentPosVertical -= _rectangleSpacing; // Move to next row for future attempt
+            }
+            else
             {
-                for(int i = 0;i < currentGame.CodeLength;i++)
+                // Disable selection buttons when game ends
+                foreach (var button in selectColoursList)
                 {
-                    selectColoursList[i].IsEnabled = false;
+                    button.IsEnabled = false;
                 }
 
-                System.Windows.Point solutionPoint = new System.Windows.Point(solveCodeHorizontalPosition,solveCodeVerticalPosition);
-
+                System.Windows.Point solutionPoint = new System.Windows.Point(solveCodeHorizontalPosition, solveCodeVerticalPosition);
                 Colours[] solution = currentGame.GiveColourCode();
 
-                for(int i = 0;i<currentGame.CodeLength ; i++)
+                for (int i = 0; i < currentGame.CodeLength; i++)
                 {
-                    generateEllipse(solutionPoint, solution[i]);
+                    generateEllipse(solutionPoint, solution[i]); // Display the correct solution
+                    solutionPoint.X += _buttonSpacing;
                 }
-
             }
-
         }
 
-        //✔
-        private void resetButton()
+
+        public void generateCodeSolver()
         {
             for (int i = 0; i < currentGame.CodeLength; i++)
             {
-                //resetto la board dei bottoni al colore rosso
-                selectColoursList[i].Content = "1";
-                ShowButtonColours(selectColoursList[i]);
+                Button button = generateButton(i, new Point(_currentPosHorizontal, _currentPosVertical));
+                selectColoursList.Add(button);
+                this.Content = button;
             }
         }
 
-        //✔
-        private void nextColour(object sender, EventArgs e)
+        private Colours[] buttonToCode()
         {
-            if (sender is System.Windows.Controls.Button) 
+            Colours[] code = new Colours[currentGame.CodeLength];
+            for (int i = 0; i < currentGame.CodeLength; i++)
             {
-                Button btn = sender as Button;
-
-                if (btn == null)
-                    btn.Content = 0;
-
-                int curr = int.Parse((string)btn.Content);
-
-                Colours cl = Colours.Red + curr;
-
-                currentCodeBreaker.NextColour(ref cl);
-
-                btn.Content = (int)cl;
-
-                ShowButtonColours(btn);
-
+                if (int.TryParse(selectColoursList[i].Content.ToString(), out int colorValue))
+                    code[i] = (Colours)colorValue;
+                else
+                    code[i] = Colours.Red;
             }
+            return code;
         }
-        //✔
-        private void previousColour(object sender, EventArgs e)
+
+        private void changeColour(object sender, MouseButtonEventArgs e)
         {
-            if (sender is Button)
+            if (sender is Button btn)
             {
-                Button btn = sender as Button;
+                if (btn.Content == null)
+                {
+                    btn.Content = "0"; // Ensure content is initialized
+                }
 
-                if (btn == null)
-                    btn.Content = 0;
+                if (int.TryParse(btn.Content.ToString(), out int curr))
+                {
+                    Colours cl = Colours.Red + curr; // Get current color
 
-                int curr = int.Parse((string)btn.Content);
+                    // Check mouse button type
+                    if (e.ChangedButton == MouseButton.Left)
+                    {
+                        currentCodeBreaker.NextColour(ref cl); // Left Click → Next Color
+                    }
+                    else if (e.ChangedButton == MouseButton.Right)
+                    {
+                        currentCodeBreaker.PreviousColour(ref cl); // Right Click → Previous Color
+                    }
 
-                Colours cl = Colours.Red+curr;
-
-                currentCodeBreaker.PreviousColour(ref cl);
-
-                btn.Content = (int)cl;
-
-                ShowButtonColours(btn);
-
+                    btn.Content = ((int)cl).ToString(); // Update button content
+                    ShowButtonColours(btn); // Apply new color to UI
+                }
             }
         }
 
-        //✔
+
+
         private void ShowButtonColours(Button btn)
         {
             int cur = int.Parse((string)btn.Content);
-            switch (cur) 
+            switch (cur)
             {
                 case 0:
                     btn.Background = Brushes.Red;
@@ -274,10 +193,10 @@ namespace MasterMind_DiMasi_Senni
                     btn.Background = Brushes.Cyan;
                     break;
                 case 8:
-                    btn.Background = Brushes.Cyan;
+                    btn.Background = Brushes.Brown;
                     break;
-                case 9://scarletto
-                    btn.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 36, 0));
+                case 9:
+                    btn.Background = new SolidColorBrush(Color.FromRgb(255, 36, 0));
                     break;
                 case 10:
                     btn.Background = Brushes.Teal;
@@ -288,12 +207,10 @@ namespace MasterMind_DiMasi_Senni
                 default:
                     btn.Background = Brushes.Black;
                     break;
-
             }
-            
         }
 
-        private void ShowEllipseColour(Ellipse ell,int colour)
+        private void ShowEllipseColour(Ellipse ell, int colour)
         {
             switch (colour)
             {
@@ -322,10 +239,10 @@ namespace MasterMind_DiMasi_Senni
                     ell.Fill = Brushes.Cyan;
                     break;
                 case 8:
-                    ell.Fill = Brushes.Cyan;
+                    ell.Fill = Brushes.Brown;
                     break;
-                case 9://scarletto
-                    ell.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 36, 0));
+                case 9:
+                    ell.Fill = new SolidColorBrush(Color.FromRgb(255, 36, 0));
                     break;
                 case 10:
                     ell.Fill = Brushes.Teal;
@@ -336,156 +253,136 @@ namespace MasterMind_DiMasi_Senni
                 default:
                     ell.Fill = Brushes.Black;
                     break;
-
             }
         }
 
-        //gestione delle coordinate da fare, non dovrebbe essere troppo complesso
+        // Generates a rectangle to represent each attempt's row
         private System.Windows.Shapes.Rectangle generateRectangle(System.Windows.Point currPoint)
         {
-            System.Windows.Shapes.Rectangle rec = new System.Windows.Shapes.Rectangle();
-            
-            rec.Name = $"{_currentAttempt}Rectangle";
-            rec.Width = recWidth;
-            rec.Height = recHeight;
-            rec.Fill = Brushes.Black;
-            rec.PointFromScreen(currPoint);
-            rec.Visibility = System.Windows.Visibility.Visible;
-            
+            System.Windows.Shapes.Rectangle rec = new System.Windows.Shapes.Rectangle
+            {
+                Name = $"{_currentAttempt}Rectangle",
+                Width = _maxWidth,
+                Height = _rectangleHeight,
+                Fill = Brushes.Black,
+                Visibility = System.Windows.Visibility.Visible
+            };
+
+            // Set position using Canvas
+            Canvas.SetLeft(rec, currPoint.X);
+            Canvas.SetTop(rec, currPoint.Y);
+
             return rec;
-
         }
 
-        
-
-        //questi sono i bottoni per la zona di gioco
-        //gestione delle coordinate da fare, non dovrebbe essere troppo complesso
-        private Button generateButton(int currentPos,System.Windows.Point currPoint)
+        // Generates a button used for selecting colors
+        private Button generateButton(int currentPos, System.Windows.Point currPoint)
         {
-           Button btn = new Button();
-            //btn.Name = $"{currentPos}SolverButton";
-            btn.Width = _buttonSize;
-            btn.Height = _buttonSize;
-            btn.Background = Brushes.Red;
-            btn.PointFromScreen(currPoint);
-            btn.BorderThickness = new Thickness(2);
-            btn.Content = "1";
-            btn.FontWeight = FontWeights.Bold;
-            btn.FontSize = _buttonSize / 3;
-            btn.Foreground = Brushes.White;
-            btn.Visibility = System.Windows.Visibility.Visible;
+            Button btn = new Button
+            {
+                Width = _buttonSize,
+                Height = _buttonSize,
+                Background = Brushes.Red,
+                BorderThickness = new Thickness(2),
+                Content = "1", // Default color index
+                FontWeight = FontWeights.Bold,
+                FontSize = _buttonSize / 3,
+                Foreground = Brushes.White,
+                Visibility = System.Windows.Visibility.Visible
+            };
 
-            return btn; 
+            // Attach event handlers for changing color
+            btn.MouseDown += changeColour;
 
+            // Set position using Canvas
+            Canvas.SetLeft(btn, currPoint.X);
+            Canvas.SetTop(btn, currPoint.Y);
+
+            return btn;
         }
 
-
-        //btnToCopy mi dice i valori da copiare (colore principalmente)
-        private Ellipse generateEllipse(System.Windows.Point currPoint,Button btnToCopy,int currentAttempt,int currentPos)
+        // Generates an ellipse for the attempt's color representation
+        private Ellipse generateEllipse(System.Windows.Point currPoint, Button btnToCopy, int currentAttempt, int currentPos)
         {
-            Ellipse ell = new Ellipse();
+            Ellipse ell = new Ellipse
+            {
+                Name = $"{currentAttempt}Ellipse{currentPos}",
+                Width = _buttonSize,
+                Height = _buttonSize,
+                Fill = btnToCopy.Background, // Copy button color
+                Visibility = System.Windows.Visibility.Visible
+            };
 
-            ell.Name = $"{currentAttempt}Ellipse{currentPos}";
-            ell.Width = _buttonSize;
-            ell.Height = _buttonSize;
-            ell.Fill = btnToCopy.Background;
-            ell.PointFromScreen(currPoint);
-            ell.Visibility = System.Windows.Visibility.Visible;
+            // Position the ellipse correctly
+            Canvas.SetLeft(ell, currPoint.X);
+            Canvas.SetTop(ell, currPoint.Y);
 
             return ell;
-
         }
 
-        //per generare la soluzione in cima alla pagina
+        // Generates an ellipse to represent the solution in the top of the game screen
         private Ellipse generateEllipse(System.Windows.Point currPoint, Colours colourToCopy)
         {
-            Ellipse ell = new Ellipse();
+            Ellipse ell = new Ellipse
+            {
+                Width = solveCodeSize,
+                Height = solveCodeSize,
+                Visibility = Visibility.Visible
+            };
 
-            ell.Name = "SolutionEll";
-            ell.Width = solveCodeSize;
-            ell.Height = solveCodeSize;
-            ShowEllipseColour(ell,(int)colourToCopy);
-            ell.PointFromScreen(currPoint);
-            ell.Visibility = System.Windows.Visibility.Visible;
+            ShowEllipseColour(ell, (int)colourToCopy);
+
+            // Position the solution ellipses correctly
+            Canvas.SetLeft(ell, currPoint.X);
+            Canvas.SetTop(ell, currPoint.Y);
 
             return ell;
         }
 
-        //genera ad ogni turno i suggerimenti del gioco mastermind
-        private Button generateTips(int currentTip,System.Windows.Point currentPoint)
+        // Generates hint buttons to display the game’s feedback (Right/Wrong positions)
+        private Button generateTips(int currentTip, System.Windows.Point currentPoint)
         {
-            Button tipButton = new Button();
+            Button tipButton = new Button
+            {
+                Name = $"{currentTip}Tip",
+                Width = _tipsSize,
+                Height = _rectangleHeight,
+                Background = Brushes.LightGray,
+                Foreground = Brushes.Black,
+                Visibility = System.Windows.Visibility.Visible
+            };
 
-            tipButton.Name = $"{currentTip}Tip";
-            tipButton.Width = _tipsSize;
-            tipButton.Height = _rectangleHeight;
-            tipButton.Background = Brushes.LightGray;
-            tipButton.Foreground = Brushes.Black;
-            tipButton.PointFromScreen(currentPoint);
-            tipButton.Visibility = System.Windows.Visibility.Visible;
+            // Set the content based on the tip type
+            switch (currentTip)
+            {
+                case 0:
+                    tipButton.Content = currentGame.RightPosition;
+                    break;
+                case 1:
+                    tipButton.Content = currentGame.WrongPosition;
+                    break;
+                case 2:
+                    tipButton.Content = currentGame.IsAllWrong;
+                    break;
+            }
 
-            if (currentTip == 0)
-                tipButton.Content = currentGame.RightPosition;
-            else if (currentTip == 1)
-                tipButton.Content = currentGame.WrongPosition;
-            else
-                tipButton.Content = currentGame.IsAllWrong;
+            // Set position using Canvas
+            Canvas.SetLeft(tipButton, currentPoint.X);
+            Canvas.SetTop(tipButton, currentPoint.Y);
 
             return tipButton;
-
         }
 
-    }
-
-
-
-
-    //primo tentativo (probabilmente fallimentare) per la generazione del turno
-
-
-   
-    /*
-        private void generateButtons()
+        // Resets all color selection buttons to their default state
+        private void resetButton()
         {
-            // Determine the number of buttons that will fit in the available width
-            int n_x = game.CodeLength;  // Number of buttons in a single row
-
-            // Calculate the size of each button
-            double maxSize = Math.Min(recWidth, recHeight) / (2 * n_x);  // Adjusted based on the width
-            maxSize = Math.Max(10, maxSize);  // Ensure the size is not smaller than 10
-
-            // Calculate the spacing between buttons
-            double spacing_x = (recWidth - n_x * maxSize) / (n_x - 1);
-
-            // Generate buttons and position them in a single row
-            for (int i = 0; i < game.CodeLength; i++)
+            for (int i = 0; i < currentGame.CodeLength; i++)
             {
-                double posX = i * (maxSize + spacing_x);  // Calculate X position in the row
-                Button button = createButton(i, maxSize);
-                button.Margin = new Thickness(posX, 0, 0, 0);  // Position the button in a single line
+                selectColoursList[i].Content = "1"; // Reset to initial color
+                ShowButtonColours(selectColoursList[i]); // Update UI
             }
         }
 
-        private Button createButton(int name, double size)
-        {
-            return new Button
-            {
-                Name = $"btnTurn{game.NAttempts}pos{name}",
-                Width = size,
-                Height = size,
-                Background = Brushes.Crimson,
-                BorderBrush = Brushes.Black,
-                BorderThickness = new Thickness(2),
-                Content = 1,
-                FontWeight = FontWeights.Bold,
-                FontSize = size / 3,
-                Foreground = Brushes.White,
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Style = FindResource("RoundButtonStyle") as Style
-            };
-        }*/
 
-
-
+    }
 }
