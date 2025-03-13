@@ -57,5 +57,15 @@ namespace MasterMind_DiMasi_Senni
         {
 
         }
+
+        private void btnPersonalized_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnPersonalized_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
