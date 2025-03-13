@@ -36,6 +36,7 @@ namespace MasterMind_DiMasi_Senni
         public GameWindow(GameManager game)
         {
             InitializeComponent();
+            
             currentGame = game;
             _gameCanvas = new Canvas
             {
@@ -43,9 +44,15 @@ namespace MasterMind_DiMasi_Senni
                 Height = this.Height,
                 Background = Brushes.Transparent // Keep background transparent
             };
+           
             calculateRectangle();
             calculateButton();
             generateCodeSolver();
+
+            //this.gridGame.Children.Add(_gameCanvas);
+            
+            this.Show();
+            
         }
 
         public void calculateRectangle()
@@ -124,7 +131,9 @@ namespace MasterMind_DiMasi_Senni
                 Button button = generateButton(i, new Point(_currentPosHorizontal, _currentPosVertical));
                 selectColoursList.Add(button);
                 this.Content = button;
+                _currentPosHorizontal += _buttonSpacing+_buttonSize;
             }
+            _currentPosHorizontal = startHorizontal;
         }
 
         private Colours[] buttonToCode()
@@ -293,13 +302,16 @@ namespace MasterMind_DiMasi_Senni
                 Height = _buttonSize,
                 Background = Brushes.Red,
                 BorderThickness = new Thickness(2),
+                Margin.Left = currPoint.X,
+                Margin.Right=currPoint.X+_buttonSize,
+                Margin.Top = currPoint.Y +_buttonSize,
+                Margin.Bottom = currPoint.Y+,
                 Content = "1",
                 FontWeight = FontWeights.Bold,
                 FontSize = _buttonSize / 3,
                 Foreground = Brushes.White,
                 Visibility = System.Windows.Visibility.Visible
             };
-
             // Attach mouse event for color change
             btn.MouseDown += changeColour;
 

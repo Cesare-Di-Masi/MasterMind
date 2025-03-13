@@ -20,13 +20,12 @@ namespace MasterMind_DiMasi_Senni
     /// </summary>
     public partial class PveWindows : Window
     {
-        private bool _isColorBlind;
+        private bool _isColorBlind = true;
         GameManager game;
 
-        public PveWindows(bool isColorBlind)
+        public PveWindows()
         {
             InitializeComponent();
-            _isColorBlind = isColorBlind;
         }
 
         private void btnMenù_Click(object sender, RoutedEventArgs e)
@@ -38,9 +37,9 @@ namespace MasterMind_DiMasi_Senni
 
         private void btnEasy_Click(object sender, RoutedEventArgs e)
         {
-            game = new GameManager(_isColorBlind, 4, 4,5,1);
-            Window Game = new GameWindow(game);
-            Game.Show();
+            game = new GameManager(_isColorBlind, 4, 4, 5, 1);
+            Window gameWindow = new GameWindow(game);
+           // gameWindow.Show();
             this.Close();
         }
 

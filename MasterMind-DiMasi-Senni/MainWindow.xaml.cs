@@ -24,10 +24,9 @@ namespace MasterMind_DiMasi_Senni
 
         private void btnPVE_Click(object sender, RoutedEventArgs e)
         {
-            Window a = new PveWindows(isColorBlind);
+            Window a = new PveWindows();
             a.Show();
             this.Close();
-
         }
 
         private void btnRule_Click(object sender, RoutedEventArgs e)
