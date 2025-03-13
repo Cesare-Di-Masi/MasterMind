@@ -31,10 +31,18 @@ namespace MasterMind_DiMasi_Senni
         private int solveCodeHorizontalPosition = 445;
         private int solveCodeSize = 20;
 
+        private Canvas _gameCanvas;
+
         public GameWindow(GameManager game)
         {
             InitializeComponent();
             currentGame = game;
+            _gameCanvas = new Canvas
+            {
+                Width = this.Width,
+                Height = this.Height,
+                Background = Brushes.Transparent // Keep background transparent
+            };
             calculateRectangle();
             calculateButton();
             generateCodeSolver();
@@ -268,7 +276,8 @@ namespace MasterMind_DiMasi_Senni
                 Visibility = System.Windows.Visibility.Visible
             };
 
-            // Set position using Canvas
+            // Add the rectangle to the Canvas and set position
+            _gameCanvas.Children.Add(rec);
             Canvas.SetLeft(rec, currPoint.X);
             Canvas.SetTop(rec, currPoint.Y);
 
@@ -284,22 +293,24 @@ namespace MasterMind_DiMasi_Senni
                 Height = _buttonSize,
                 Background = Brushes.Red,
                 BorderThickness = new Thickness(2),
-                Content = "1", // Default color index
+                Content = "1",
                 FontWeight = FontWeights.Bold,
                 FontSize = _buttonSize / 3,
                 Foreground = Brushes.White,
                 Visibility = System.Windows.Visibility.Visible
             };
 
-            // Attach event handlers for changing color
+            // Attach mouse event for color change
             btn.MouseDown += changeColour;
 
-            // Set position using Canvas
+            // Add button to the Canvas and set position
+            _gameCanvas.Children.Add(btn);
             Canvas.SetLeft(btn, currPoint.X);
             Canvas.SetTop(btn, currPoint.Y);
 
             return btn;
         }
+
 
         // Generates an ellipse for the attempt's color representation
         private Ellipse generateEllipse(System.Windows.Point currPoint, Button btnToCopy, int currentAttempt, int currentPos)
@@ -309,16 +320,18 @@ namespace MasterMind_DiMasi_Senni
                 Name = $"{currentAttempt}Ellipse{currentPos}",
                 Width = _buttonSize,
                 Height = _buttonSize,
-                Fill = btnToCopy.Background, // Copy button color
+                Fill = btnToCopy.Background,
                 Visibility = System.Windows.Visibility.Visible
             };
 
-            // Position the ellipse correctly
+            // Add ellipse to the Canvas and set position
+            _gameCanvas.Children.Add(ell);
             Canvas.SetLeft(ell, currPoint.X);
             Canvas.SetTop(ell, currPoint.Y);
 
             return ell;
         }
+
 
         // Generates an ellipse to represent the solution in the top of the game screen
         private Ellipse generateEllipse(System.Windows.Point currPoint, Colours colourToCopy)
@@ -332,12 +345,14 @@ namespace MasterMind_DiMasi_Senni
 
             ShowEllipseColour(ell, (int)colourToCopy);
 
-            // Position the solution ellipses correctly
+            // Add ellipse to the Canvas and set position
+            _gameCanvas.Children.Add(ell);
             Canvas.SetLeft(ell, currPoint.X);
             Canvas.SetTop(ell, currPoint.Y);
 
             return ell;
         }
+
 
         // Generates hint buttons to display the game’s feedback (Right/Wrong positions)
         private Button generateTips(int currentTip, System.Windows.Point currentPoint)
@@ -352,7 +367,7 @@ namespace MasterMind_DiMasi_Senni
                 Visibility = System.Windows.Visibility.Visible
             };
 
-            // Set the content based on the tip type
+            // Set the tip content
             switch (currentTip)
             {
                 case 0:
@@ -366,12 +381,14 @@ namespace MasterMind_DiMasi_Senni
                     break;
             }
 
-            // Set position using Canvas
+            // Add tip button to the Canvas and set position
+            _gameCanvas.Children.Add(tipButton);
             Canvas.SetLeft(tipButton, currentPoint.X);
             Canvas.SetTop(tipButton, currentPoint.Y);
 
             return tipButton;
         }
+
 
         // Resets all color selection buttons to their default state
         private void resetButton()
