@@ -13,6 +13,5 @@
         <Button x:Name="btnRule" Content="?" HorizontalAlignment="Center" Margin="0,172,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.448,-1.113" Height="45" Width="46"  FontSize="30" FontFamily="Bernard MT Condensed" Click="btnRule_Click" Background="#FF5D8A28" Foreground="White" BorderBrush="Black" />
         <Label x:Name="lblPhrase" Content="The game of spy for people that aren't spies" HorizontalAlignment="Center" Height="34" Margin="0,96,0,0" VerticalAlignment="Top" Width="350" FontSize="20" FontFamily="Bernard MT Condensed" Background="#FF9E622F" Foreground="White" />
         <Image Margin="-31,-35,516,275" Source="/image-removebg-preview.png" Stretch="Fill"/>
-        <CheckBox x:Name="chkbxIsColorBlindnessOn" Margin="516,170,107,240"/>
     </Grid>
 </Window>
