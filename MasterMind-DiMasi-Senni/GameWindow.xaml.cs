@@ -36,7 +36,7 @@ namespace MasterMind_DiMasi_Senni
         public GameWindow(GameManager game)
         {
             InitializeComponent();
-            
+
             currentGame = game;
             _gameCanvas = new Canvas
             {
@@ -44,15 +44,20 @@ namespace MasterMind_DiMasi_Senni
                 Height = this.Height,
                 Background = Brushes.Transparent // Keep background transparent
             };
-           
+
+            allAttempts = new List<List<Ellipse>>(currentGame.NAttempts);
+            allTips = new List<List<Button>>(currentGame.NAttempts);
+            selectColoursList = new List<Button>(currentGame.CodeLength);
+
             calculateRectangle();
             calculateButton();
             generateCodeSolver();
+            newTurn();
 
             //this.gridGame.Children.Add(_gameCanvas);
-            
-            this.Show();
-            
+
+            //this.Show();
+
         }
 
         public void calculateRectangle()
@@ -103,6 +108,7 @@ namespace MasterMind_DiMasi_Senni
                 }
 
                 _currentPosVertical -= _rectangleSpacing; // Move to next row for future attempt
+                _currentAttempt++; // Increase the attempt counter
             }
             else
             {
@@ -274,18 +280,18 @@ namespace MasterMind_DiMasi_Senni
         }
 
         // Generates a rectangle to represent each attempt's row
-        private System.Windows.Shapes.Rectangle generateRectangle(System.Windows.Point currPoint)
+        private Rectangle generateRectangle(System.Windows.Point currPoint)
         {
-            System.Windows.Shapes.Rectangle rec = new System.Windows.Shapes.Rectangle
+            Rectangle rec = new Rectangle
             {
-                Name = $"{_currentAttempt}Rectangle",
+                //Name = $"{_currentAttempt}Rectangle",
                 Width = _maxWidth,
                 Height = _rectangleHeight,
                 Fill = Brushes.Black,
-                Visibility = System.Windows.Visibility.Visible
+                Visibility = Visibility.Visible
             };
 
-            // Add the rectangle to the Canvas and set position
+            // Add the rectangle to the _gameCanvas and set position
             _gameCanvas.Children.Add(rec);
             Canvas.SetLeft(rec, currPoint.X);
             Canvas.SetTop(rec, currPoint.Y);
@@ -294,6 +300,7 @@ namespace MasterMind_DiMasi_Senni
         }
 
         // Generates a button used for selecting colors
+        
         private Button generateButton(int currentPos, System.Windows.Point currPoint)
         {
             Button btn = new Button
@@ -302,10 +309,6 @@ namespace MasterMind_DiMasi_Senni
                 Height = _buttonSize,
                 Background = Brushes.Red,
                 BorderThickness = new Thickness(2),
-                Margin.Left = currPoint.X,
-                Margin.Right=currPoint.X+_buttonSize,
-                Margin.Top = currPoint.Y +_buttonSize,
-                Margin.Bottom = currPoint.Y+,
                 Content = "1",
                 FontWeight = FontWeights.Bold,
                 FontSize = _buttonSize / 3,
@@ -329,7 +332,7 @@ namespace MasterMind_DiMasi_Senni
         {
             Ellipse ell = new Ellipse
             {
-                Name = $"{currentAttempt}Ellipse{currentPos}",
+                //Name = $"{currentAttempt}Ellipse{currentPos}",
                 Width = _buttonSize,
                 Height = _buttonSize,
                 Fill = btnToCopy.Background,

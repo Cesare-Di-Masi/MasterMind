@@ -39,7 +39,7 @@ namespace MasterMind_DiMasi_Senni
         {
             game = new GameManager(_isColorBlind, 4, 4, 5, 1);
             Window gameWindow = new GameWindow(game);
-           // gameWindow.Show();
+           //gameWindow.Show();
             this.Close();
         }
 
