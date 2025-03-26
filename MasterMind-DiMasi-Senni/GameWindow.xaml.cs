@@ -42,22 +42,37 @@ namespace MasterMind_DiMasi_Senni
             {
                 Width = this.Width,
                 Height = this.Height,
-                Background = Brushes.Transparent // Keep background transparent
+                Background = Brushes.Transparent // Mantieni lo sfondo trasparente
             };
 
             allAttempts = new List<List<Ellipse>>(currentGame.NAttempts);
             allTips = new List<List<Button>>(currentGame.NAttempts);
+
+            for (int i = 0; i < game.NAttempts; i++)
+            {
+                allAttempts.Add(new List<Ellipse>(game.CodeLength));
+                allTips.Add(new List<Button>(3));
+            }
+
             selectColoursList = new List<Button>(currentGame.CodeLength);
 
             calculateRectangle();
             calculateButton();
             generateCodeSolver();
-            newTurn();
 
-            //this.gridGame.Children.Add(_gameCanvas);
+            // Assicura che _gameCanvas venga rimosso dal genitore precedente
+            if (_gameCanvas.Parent != null)
+            {
+                ((Panel)_gameCanvas.Parent).Children.Remove(_gameCanvas);
+            }
 
-            //this.Show();
+            // Controlla che _gameCanvas non sia già presente prima di aggiungerlo
+            if (!this.gridGame.Children.Contains(_gameCanvas))
+            {
+                this.gridGame.Children.Add(_gameCanvas);
+            }
 
+            this.Show();
         }
 
         public void calculateRectangle()
@@ -136,11 +151,13 @@ namespace MasterMind_DiMasi_Senni
             {
                 Button button = generateButton(i, new Point(_currentPosHorizontal, _currentPosVertical));
                 selectColoursList.Add(button);
-                this.Content = button;
-                _currentPosHorizontal += _buttonSpacing+_buttonSize;
+                ShowButtonColours(button);
+
+                _currentPosHorizontal += _buttonSpacing + _buttonSize;
             }
             _currentPosHorizontal = startHorizontal;
         }
+
 
         private Colours[] buttonToCode()
         {
@@ -161,7 +178,7 @@ namespace MasterMind_DiMasi_Senni
             {
                 if (btn.Content == null)
                 {
-                    btn.Content = "0"; // Ensure content is initialized
+                    btn.Content = "1"; // Ensure content is initialized
                 }
 
                 if (int.TryParse(btn.Content.ToString(), out int curr))
@@ -179,8 +196,8 @@ namespace MasterMind_DiMasi_Senni
                     }
 
                     btn.Content = ((int)cl).ToString(); // Update button content
-                    ShowButtonColours(btn); // Apply new color to UI
                 }
+                ShowButtonColours(btn); // Apply new color to UI
             }
         }
 
@@ -300,7 +317,7 @@ namespace MasterMind_DiMasi_Senni
         }
 
         // Generates a button used for selecting colors
-        
+
         private Button generateButton(int currentPos, System.Windows.Point currPoint)
         {
             Button btn = new Button
@@ -309,17 +326,22 @@ namespace MasterMind_DiMasi_Senni
                 Height = _buttonSize,
                 Background = Brushes.Red,
                 BorderThickness = new Thickness(2),
-                Content = "1",
+                Content = "0",
                 FontWeight = FontWeights.Bold,
                 FontSize = _buttonSize / 3,
                 Foreground = Brushes.White,
-                Visibility = System.Windows.Visibility.Visible
+                Visibility = Visibility.Visible
             };
-            // Attach mouse event for color change
+
+            // Associa l'evento per cambiare colore
             btn.MouseDown += changeColour;
 
-            // Add button to the Canvas and set position
-            _gameCanvas.Children.Add(btn);
+            // Controlla se _gameCanvas contiene già il pulsante prima di aggiungerlo
+            if (!_gameCanvas.Children.Contains(btn))
+            {
+                _gameCanvas.Children.Add(btn);
+            }
+
             Canvas.SetLeft(btn, currPoint.X);
             Canvas.SetTop(btn, currPoint.Y);
 
@@ -327,25 +349,30 @@ namespace MasterMind_DiMasi_Senni
         }
 
 
+
         // Generates an ellipse for the attempt's color representation
         private Ellipse generateEllipse(System.Windows.Point currPoint, Button btnToCopy, int currentAttempt, int currentPos)
         {
             Ellipse ell = new Ellipse
             {
-                //Name = $"{currentAttempt}Ellipse{currentPos}",
                 Width = _buttonSize,
                 Height = _buttonSize,
                 Fill = btnToCopy.Background,
-                Visibility = System.Windows.Visibility.Visible
+                Visibility = Visibility.Visible
             };
 
-            // Add ellipse to the Canvas and set position
-            _gameCanvas.Children.Add(ell);
+            // Controlla se _gameCanvas contiene già l'ellisse prima di aggiungerla
+            if (!_gameCanvas.Children.Contains(ell))
+            {
+                _gameCanvas.Children.Add(ell);
+            }
+
             Canvas.SetLeft(ell, currPoint.X);
             Canvas.SetTop(ell, currPoint.Y);
 
             return ell;
         }
+
 
 
         // Generates an ellipse to represent the solution in the top of the game screen
@@ -374,7 +401,7 @@ namespace MasterMind_DiMasi_Senni
         {
             Button tipButton = new Button
             {
-                Name = $"{currentTip}Tip",
+                //Name = $"{currentTip}Tip",
                 Width = _tipsSize,
                 Height = _rectangleHeight,
                 Background = Brushes.LightGray,

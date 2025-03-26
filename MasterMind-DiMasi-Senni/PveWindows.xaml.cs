@@ -45,7 +45,7 @@ namespace MasterMind_DiMasi_Senni
 
         private void btnDifficult_Click(object sender, RoutedEventArgs e)
         {
-            game = new GameManager(_isColorBlind, 6, 6, 5, 1);
+            game = new GameManager(_isColorBlind,10,6,5,2);
             Window Game = new GameWindow(game);
             Game.Show();
             this.Close();
