@@ -22,6 +22,7 @@ namespace MasterMind_DiMasi_Senni
     {
         private bool _isColorBlind = true;
         GameManager game;
+        public EasiestGenerator generator = new EasiestGenerator();
 
         public PveWindows()
         {
@@ -54,7 +55,10 @@ namespace MasterMind_DiMasi_Senni
 
         private void btnMedium_Click(object sender, RoutedEventArgs e)
         {
-
+            game = new GameManager(_isColorBlind, 4, 4, 5, 4, generator);
+            Window gameWindow = new GameWindow(game);
+            gameWindow.Show();
+            this.Close();
         }
 
         private void btnPersonalized_Click(object sender, RoutedEventArgs e)

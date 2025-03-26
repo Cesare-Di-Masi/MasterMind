@@ -37,6 +37,9 @@ namespace MasterMind_DiMasi_Senni
         {
             InitializeComponent();
 
+            this.SizeToContent = SizeToContent.WidthAndHeight;
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             currentGame = game;
             _gameCanvas = new Canvas
             {
@@ -71,6 +74,8 @@ namespace MasterMind_DiMasi_Senni
             {
                 this.gridGame.Children.Add(_gameCanvas);
             }
+
+            currentCodeBreaker = new CodeBreaker(game.NColours);
 
             this.Show();
         }
@@ -156,6 +161,7 @@ namespace MasterMind_DiMasi_Senni
                 _currentPosHorizontal += _buttonSpacing + _buttonSize;
             }
             _currentPosHorizontal = startHorizontal;
+
         }
 
 
@@ -172,7 +178,32 @@ namespace MasterMind_DiMasi_Senni
             return code;
         }
 
-        private void changeColour(object sender, MouseButtonEventArgs e)
+        private void NextColour(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                if (btn.Content == null)
+                {
+                    btn.Content = "1"; // Ensure content is initialized
+                }
+
+                if (int.TryParse(btn.Content.ToString(), out int curr))
+                {
+                    Colours cl = Colours.Red + curr; // Get current color
+
+                    // Check mouse button type
+                    if (e.ChangedButton == MouseButton.Left)
+                    {
+                        currentCodeBreaker.NextColour(ref cl); // Left Click → Next Color
+                    }
+                    
+                    btn.Content = ((int)cl).ToString(); // Update button content
+                }
+                ShowButtonColours(btn); // Apply new color to UI
+            }
+        }
+
+        private void PreviousColour(object sender, MouseButtonEventArgs e)
         {
             if (sender is Button btn)
             {
@@ -334,7 +365,8 @@ namespace MasterMind_DiMasi_Senni
             };
 
             // Associa l'evento per cambiare colore
-            btn.MouseDown += changeColour;
+            btn.MouseRightButtonDown += PreviousColour;
+            btn.MouseLeftButtonDown += NextColour;
 
             // Controlla se _gameCanvas contiene già il pulsante prima di aggiungerlo
             if (!_gameCanvas.Children.Contains(btn))
@@ -361,12 +393,13 @@ namespace MasterMind_DiMasi_Senni
                 Visibility = Visibility.Visible
             };
 
+            
             // Controlla se _gameCanvas contiene già l'ellisse prima di aggiungerla
             if (!_gameCanvas.Children.Contains(ell))
             {
                 _gameCanvas.Children.Add(ell);
             }
-
+            double yOffset = _gameCanvas.Height - (_rectangleSpacing * (currentAttempt + 1));
             Canvas.SetLeft(ell, currPoint.X);
             Canvas.SetTop(ell, currPoint.Y);
 
