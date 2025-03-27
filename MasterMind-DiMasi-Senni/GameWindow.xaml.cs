@@ -358,8 +358,7 @@ namespace MasterMind_DiMasi_Senni
             };
 
             // Associa l'evento per cambiare colore
-            btn.MouseRightButtonDown += ChangeColour;
-            btn.MouseLeftButtonDown += ChangeColour;
+            btn.MouseDown += ChangeColour;
 
             // Controlla se _gameCanvas contiene già il pulsante prima di aggiungerlo
             if (!_gameCanvas.Children.Contains(btn))
@@ -371,6 +370,11 @@ namespace MasterMind_DiMasi_Senni
             Canvas.SetTop(btn, currPoint.Y);
 
             return btn;
+        }
+
+        private void Btn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         // Generates an ellipse for the attempt's color representation
@@ -416,8 +420,6 @@ namespace MasterMind_DiMasi_Senni
             return ell;
         }
 
-<<<<<<< HEAD
-=======
         private void btnMenù_Click(object sender, RoutedEventArgs e)
         {
             var a = new MainWindow();
@@ -425,9 +427,6 @@ namespace MasterMind_DiMasi_Senni
             this.Close();
         }
 
-
->>>>>>> 710fda8c57e82b405f87cdc0a8f9ebed8bb48474
-        // Generates hint buttons to display the game’s feedback (Right/Wrong positions)
         private Button generateTips(int currentTip, System.Windows.Point currentPoint)
         {
             Button tipButton = new Button
