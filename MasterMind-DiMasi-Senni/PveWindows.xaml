@@ -10,7 +10,7 @@
         <Label x:Name="lblModality" Content="Selezionare la modalità di&#xD;&#xA; gioco contro il computer " HorizontalAlignment="Center" Margin="0,27,0,310" Width="312" FontSize="30" FontFamily="Bernard MT Condensed" Foreground="White" />
         <Button x:Name="btnDifficult" Content="DIFFICILE (10 colori)" HorizontalAlignment="Right" Margin="0,137,42,0" VerticalAlignment="Top" Height="56" Click="btnDifficult_Click" Width="172" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF5D8A28" BorderBrush="Black" Foreground="White" />
         <Button x:Name="btnEasy" Content="FACILE(4 COLORI)"  HorizontalAlignment="Right" Margin="0,137,590,0" VerticalAlignment="Top" Height="56" Click="btnEasy_Click" Width="172" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF5D8A28" BorderBrush="Black" Foreground="White" />
-        <Button x:Name="btnMedium" Content="MEDIA(6 COLORI)"  HorizontalAlignment="Center" Margin="0,137,0,0" VerticalAlignment="Top" Height="56" Click="btnMedium_Click" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF5D8A28" BorderBrush="Black" Foreground="White" Width="172">
+        <Button x:Name="btnMedium" Content="Debug Mode (all red)"  HorizontalAlignment="Center" Margin="0,137,0,0" VerticalAlignment="Top" Height="56" Click="btnMedium_Click" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF5D8A28" BorderBrush="Black" Foreground="White" Width="172">
 
             <Button.RenderTransform>
                 <TransformGroup>

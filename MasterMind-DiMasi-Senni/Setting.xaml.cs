@@ -14,5 +14,7 @@ namespace MasterMind_DiMasi_Senni
             _isColorBlind = isColorBlind;
             InitializeComponent();
         }
+
+
     }
 }

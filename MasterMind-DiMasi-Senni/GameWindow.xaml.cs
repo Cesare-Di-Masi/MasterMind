@@ -117,7 +117,7 @@ namespace MasterMind_DiMasi_Senni
                 {
                     // Generate the new row of ellipses (previous attempt)
                     allAttempts[_currentAttempt].Add(generateEllipse(ellipsePoint, selectColoursList[i], _currentAttempt, i));
-                    ellipsePoint.X += _buttonSpacing; // Move right for next circle
+                    ellipsePoint.X += _buttonSpacing + _buttonSize; // Move right for next circle
                 }
 
                 for (int i = 0; i < 3; i++)
@@ -126,7 +126,7 @@ namespace MasterMind_DiMasi_Senni
                     generateTips(i, tipsPoint);
                 }
 
-                _currentPosVertical -= _rectangleSpacing; // Move to next row for future attempt
+                _currentPosVertical -= _rectangleSpacing - _rectangleHeight; // Move to next row for future attempt
                 _currentAttempt++; // Increase the attempt counter
             }
             else
@@ -344,6 +344,7 @@ namespace MasterMind_DiMasi_Senni
 
         private Button generateButton(int currentPos, System.Windows.Point currPoint)
         {
+
             Button btn = new Button
             {
                 Width = _buttonSize,
@@ -374,7 +375,7 @@ namespace MasterMind_DiMasi_Senni
 
         private void Btn_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            ChangeColour(sender, e);
         }
 
         // Generates an ellipse for the attempt's color representation
