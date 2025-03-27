@@ -55,5 +55,12 @@ namespace MasterMind_DiMasi_Senni
         private void btnPersonalized_Click_1(object sender, RoutedEventArgs e)
         {
         }
+
+        private void btnPersonalized_Click_2(object sender, RoutedEventArgs e)
+        {
+            var a = new GameSettings(_isColorBlind);
+            a.Show();
+            this.Close();
+        }
     }
 }

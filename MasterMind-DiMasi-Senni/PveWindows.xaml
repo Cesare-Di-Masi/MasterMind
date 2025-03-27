@@ -21,7 +21,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="btnPersonalized" Content="PERSONALIZZATE" HorizontalAlignment="Center" Margin="0,262,0,0" VerticalAlignment="Top" Height="56" Width="172" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF5D8A28" BorderBrush="Black" Foreground="White" />
+        <Button x:Name="btnPersonalized" Content="PERSONALIZZATE" HorizontalAlignment="Center" Margin="0,262,0,0" VerticalAlignment="Top" Height="56" Width="172" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF5D8A28" BorderBrush="Black" Foreground="White" Click="btnPersonalized_Click_2" />
         <Button x:Name="btnMenù" Content="Menù" Margin="28,333,0,45" HorizontalAlignment="Left" Width="182" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF5D8A28" BorderBrush="Black" Foreground="White" Click="btnMenù_Click" />
     </Grid>
 </Window>

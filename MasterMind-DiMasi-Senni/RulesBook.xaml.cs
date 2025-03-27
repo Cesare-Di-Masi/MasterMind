@@ -1,6 +1,5 @@
-<<<<<<< HEAD
+
 ﻿using System.Windows;
-=======
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
->>>>>>> 710fda8c57e82b405f87cdc0a8f9ebed8bb48474
 
 namespace MasterMind_DiMasi_Senni
 {
