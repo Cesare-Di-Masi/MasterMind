@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,6 +23,13 @@ namespace MasterMind_DiMasi_Senni
         public RulesBook()
         {
             InitializeComponent();
+        }
+
+        private void btnMenù_Click(object sender, RoutedEventArgs e)
+        {
+            var a = new MainWindow();
+            a.Show();
+            this.Close();
         }
     }
 }

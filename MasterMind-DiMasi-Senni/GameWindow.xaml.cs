@@ -428,6 +428,13 @@ namespace MasterMind_DiMasi_Senni
             return ell;
         }
 
+        private void btnMenù_Click(object sender, RoutedEventArgs e)
+        {
+            var a = new MainWindow();
+            a.Show();
+            this.Close();
+        }
+
 
         // Generates hint buttons to display the game’s feedback (Right/Wrong positions)
         private Button generateTips(int currentTip, System.Windows.Point currentPoint)

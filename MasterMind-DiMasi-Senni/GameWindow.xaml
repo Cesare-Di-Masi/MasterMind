@@ -8,7 +8,7 @@
         Title="GameWindow" Height="600" Width="800">
     <Grid x:Name="gridGame" Background="#FF9E622F" >
         <Rectangle Stroke="#FF5D8A28" Margin="0,0,710,30" OpacityMask="Black" Fill="#FF5D8A28"/>
-        <Button x:Name="btnMenù" Content="Menù" HorizontalAlignment="Right" Margin="0,554,710,0" Panel.ZIndex="1" VerticalAlignment="Top" Height="30" Width="90" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF949494" BorderBrush="Black" Foreground="Black" RenderTransformOrigin="0.511,1.468" />
+        <Button x:Name="btnMenù" Content="Menù" HorizontalAlignment="Right" Margin="0,554,710,0" Panel.ZIndex="1" Width="90" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF949494" BorderBrush="Black" Foreground="Black" RenderTransformOrigin="0.511,1.468" Click="btnMenù_Click" />
         <Button x:Name="btnRiavvia" Content="Riavvia" HorizontalAlignment="Right" Margin="0,554,620,0" Panel.ZIndex="1" VerticalAlignment="Top" Height="30" Width="90" FontSize="15" FontFamily="Bernard MT Condensed" Background="#FF949494" BorderBrush="Black" Foreground="Black" />
         <Rectangle Stroke="#FF5D8A28" Margin="355,0,355,0" OpacityMask="Black" Fill="#FF5D8A28"/>
         <Label x:Name="lblGiuste" Content="Giuste " HorizontalAlignment="Left" Margin="90,525,0,30" Width="45" FontSize="15" FontFamily="Bernard MT Condensed" Foreground="Black" Background="#FF949494" BorderBrush="Black" />
