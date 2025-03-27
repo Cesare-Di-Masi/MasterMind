@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using MastermindLib;
+using System.Windows;
 
 namespace MasterMind_DiMasi_Senni
 {
@@ -13,6 +14,23 @@ namespace MasterMind_DiMasi_Senni
         {
             _isColorBlind = isColorBlind;
             InitializeComponent();
+        }
+
+        private void btnConferma_Click(object sender, RoutedEventArgs e)
+        {
+            btnConferma.IsEnabled = _isColorBlind;
+        }
+
+        private void btnTornaIndietro_Click(object sender, RoutedEventArgs e)
+        {
+            var a = new PveWindows();
+            a.Show();
+            this.Close();
+        }
+
+        private void btnGioca_Click(object sender, RoutedEventArgs e)
+        {
+           throw new NotImplementedException();
         }
     }
 }
