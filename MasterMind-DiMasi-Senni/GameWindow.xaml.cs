@@ -1,24 +1,23 @@
 ﻿using MastermindLib;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Windows;
-using System.Windows.Input;
-using System;
 
 namespace MasterMind_DiMasi_Senni
 {
     public partial class GameWindow : Window
     {
-        int startVertical = 89;
-        int startHorizontal = 445;
-        int _tipsSize = 86;
+        private int startVertical = 89;
+        private int startHorizontal = 445;
+        private int _tipsSize = 86;
 
-        GameManager currentGame;
-        CodeBreaker currentCodeBreaker;
-        List<Button> selectColoursList = new List<Button>();
-        List<List<Ellipse>> allAttempts = new List<List<Ellipse>>();
-        List<List<Button>> allTips = new List<List<Button>>();
+        private GameManager currentGame;
+        private CodeBreaker currentCodeBreaker;
+        private List<Button> selectColoursList = new List<Button>();
+        private List<List<Ellipse>> allAttempts = new List<List<Ellipse>>();
+        private List<List<Button>> allTips = new List<List<Button>>();
 
         private int _maxWidth = 335;
         private int _maxHeight = 491;
@@ -149,7 +148,6 @@ namespace MasterMind_DiMasi_Senni
             }
         }
 
-
         public void generateCodeSolver()
         {
             for (int i = 0; i < currentGame.CodeLength; i++)
@@ -161,9 +159,7 @@ namespace MasterMind_DiMasi_Senni
                 _currentPosHorizontal += _buttonSpacing + _buttonSize;
             }
             _currentPosHorizontal = startHorizontal;
-
         }
-
 
         private Colours[] buttonToCode()
         {
@@ -178,32 +174,7 @@ namespace MasterMind_DiMasi_Senni
             return code;
         }
 
-        private void NextColour(object sender, MouseButtonEventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                if (btn.Content == null)
-                {
-                    btn.Content = "1"; // Ensure content is initialized
-                }
-
-                if (int.TryParse(btn.Content.ToString(), out int curr))
-                {
-                    Colours cl = Colours.Red + curr; // Get current color
-
-                    // Check mouse button type
-                    if (e.ChangedButton == MouseButton.Left)
-                    {
-                        currentCodeBreaker.NextColour(ref cl); // Left Click → Next Color
-                    }
-                    
-                    btn.Content = ((int)cl).ToString(); // Update button content
-                }
-                ShowButtonColours(btn); // Apply new color to UI
-            }
-        }
-
-        private void PreviousColour(object sender, MouseButtonEventArgs e)
+        private void ChangeColour(object sender, MouseButtonEventArgs e)
         {
             if (sender is Button btn)
             {
@@ -232,8 +203,6 @@ namespace MasterMind_DiMasi_Senni
             }
         }
 
-
-
         private void ShowButtonColours(Button btn)
         {
             int cur = int.Parse((string)btn.Content);
@@ -242,39 +211,51 @@ namespace MasterMind_DiMasi_Senni
                 case 0:
                     btn.Background = Brushes.Red;
                     break;
+
                 case 1:
                     btn.Background = Brushes.Blue;
                     break;
+
                 case 2:
                     btn.Background = Brushes.Green;
                     break;
+
                 case 3:
                     btn.Background = Brushes.Yellow;
                     break;
+
                 case 4:
                     btn.Background = Brushes.Purple;
                     break;
+
                 case 5:
                     btn.Background = Brushes.Orange;
                     break;
+
                 case 6:
                     btn.Background = Brushes.Pink;
                     break;
+
                 case 7:
                     btn.Background = Brushes.Cyan;
                     break;
+
                 case 8:
                     btn.Background = Brushes.Brown;
                     break;
+
                 case 9:
                     btn.Background = new SolidColorBrush(Color.FromRgb(255, 36, 0));
                     break;
+
                 case 10:
                     btn.Background = Brushes.Teal;
                     break;
+
                 case 11:
                     btn.Background = Brushes.Indigo;
                     break;
+
                 default:
                     btn.Background = Brushes.Black;
                     break;
@@ -288,39 +269,51 @@ namespace MasterMind_DiMasi_Senni
                 case 0:
                     ell.Fill = Brushes.Red;
                     break;
+
                 case 1:
                     ell.Fill = Brushes.Blue;
                     break;
+
                 case 2:
                     ell.Fill = Brushes.Green;
                     break;
+
                 case 3:
                     ell.Fill = Brushes.Yellow;
                     break;
+
                 case 4:
                     ell.Fill = Brushes.Purple;
                     break;
+
                 case 5:
                     ell.Fill = Brushes.Orange;
                     break;
+
                 case 6:
                     ell.Fill = Brushes.Pink;
                     break;
+
                 case 7:
                     ell.Fill = Brushes.Cyan;
                     break;
+
                 case 8:
                     ell.Fill = Brushes.Brown;
                     break;
+
                 case 9:
                     ell.Fill = new SolidColorBrush(Color.FromRgb(255, 36, 0));
                     break;
+
                 case 10:
                     ell.Fill = Brushes.Teal;
                     break;
+
                 case 11:
                     ell.Fill = Brushes.Indigo;
                     break;
+
                 default:
                     ell.Fill = Brushes.Black;
                     break;
@@ -365,8 +358,8 @@ namespace MasterMind_DiMasi_Senni
             };
 
             // Associa l'evento per cambiare colore
-            btn.MouseRightButtonDown += PreviousColour;
-            btn.MouseLeftButtonDown += NextColour;
+            btn.MouseRightButtonDown += ChangeColour;
+            btn.MouseLeftButtonDown += ChangeColour;
 
             // Controlla se _gameCanvas contiene già il pulsante prima di aggiungerlo
             if (!_gameCanvas.Children.Contains(btn))
@@ -380,8 +373,6 @@ namespace MasterMind_DiMasi_Senni
             return btn;
         }
 
-
-
         // Generates an ellipse for the attempt's color representation
         private Ellipse generateEllipse(System.Windows.Point currPoint, Button btnToCopy, int currentAttempt, int currentPos)
         {
@@ -393,7 +384,6 @@ namespace MasterMind_DiMasi_Senni
                 Visibility = Visibility.Visible
             };
 
-            
             // Controlla se _gameCanvas contiene già l'ellisse prima di aggiungerla
             if (!_gameCanvas.Children.Contains(ell))
             {
@@ -405,8 +395,6 @@ namespace MasterMind_DiMasi_Senni
 
             return ell;
         }
-
-
 
         // Generates an ellipse to represent the solution in the top of the game screen
         private Ellipse generateEllipse(System.Windows.Point currPoint, Colours colourToCopy)
@@ -428,7 +416,6 @@ namespace MasterMind_DiMasi_Senni
             return ell;
         }
 
-
         // Generates hint buttons to display the game’s feedback (Right/Wrong positions)
         private Button generateTips(int currentTip, System.Windows.Point currentPoint)
         {
@@ -448,9 +435,11 @@ namespace MasterMind_DiMasi_Senni
                 case 0:
                     tipButton.Content = currentGame.RightPosition;
                     break;
+
                 case 1:
                     tipButton.Content = currentGame.WrongPosition;
                     break;
+
                 case 2:
                     tipButton.Content = currentGame.IsAllWrong;
                     break;
@@ -464,7 +453,6 @@ namespace MasterMind_DiMasi_Senni
             return tipButton;
         }
 
-
         // Resets all color selection buttons to their default state
         private void resetButton()
         {
@@ -474,7 +462,5 @@ namespace MasterMind_DiMasi_Senni
                 ShowButtonColours(selectColoursList[i]); // Update UI
             }
         }
-
-
     }
 }

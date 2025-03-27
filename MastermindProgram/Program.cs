@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using MastermindLib;
+﻿using MastermindLib;
 
 namespace MastermindProgram
 {
@@ -17,7 +16,7 @@ namespace MastermindProgram
             bool error = false;
             int choice = 0;
             GameManager game;
-            int codeLength=0, nColours=0, nAttempts = 0, codeComplexity = 0;
+            int codeLength = 0, nColours = 0, nAttempts = 0, codeComplexity = 0;
             FixedColoursGenerator fix = new FixedColoursGenerator();
 
             do
@@ -42,7 +41,8 @@ namespace MastermindProgram
             else if (choice == 2)
             {
                 game = new GameManager(false, 10, 6, 5, 1);
-            }else if(choice == 3) 
+            }
+            else if (choice == 3)
             {
                 do
                 {
@@ -64,14 +64,13 @@ namespace MastermindProgram
                     catch (Exception)
                     {
                         Console.WriteLine("Qualcosa è andato storto, riprovare");
-                        error= true;
+                        error = true;
                     }
-
                 } while (error == true);
 
-                game = new GameManager(false,codeLength,nColours,nAttempts,codeComplexity);
-
-            }else
+                game = new GameManager(false, codeLength, nColours, nAttempts, codeComplexity);
+            }
+            else
             {
                 game = new GameManager(false, 4, 4, 5, 1, fix);
             }
@@ -97,7 +96,6 @@ namespace MastermindProgram
                         col++;
                     }
                     col = 0;
-
                 }
 
                 do
@@ -110,7 +108,6 @@ namespace MastermindProgram
                             Console.WriteLine($"scrivere altri {sol.Length - i} colori");
 
                             sol[i] = col + int.Parse(Console.ReadLine());
-
                         }
                     }
                     catch (Exception)
@@ -123,7 +120,6 @@ namespace MastermindProgram
                 Console.WriteLine($"è tutto sbagliato = {game.IsAllWrong}");
                 Console.WriteLine($"colori nella posizione giusta = {game.RightPosition}");
                 Console.WriteLine($"colori nella posizione sbagliata = {game.WrongPosition}");
-
             } while (status == GameStatus.Playing);
 
             if (status == GameStatus.Lost)
@@ -132,8 +128,6 @@ namespace MastermindProgram
             }
             else
                 Console.WriteLine("you have won, congrats. :)");
-
-
         }
     }
 }

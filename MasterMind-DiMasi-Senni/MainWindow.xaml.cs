@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-using System.Windows;
-using MastermindLib;
+﻿using System.Windows;
 
 namespace MasterMind_DiMasi_Senni
 {
@@ -11,7 +9,7 @@ namespace MasterMind_DiMasi_Senni
 
     public partial class MainWindow : Window
     {
-        bool isColorBlind = false;
+        private bool isColorBlind = false;
 
         public MainWindow()
         {
@@ -31,7 +29,7 @@ namespace MasterMind_DiMasi_Senni
 
         private void btnRule_Click(object sender, RoutedEventArgs e)
         {
-            var a = new RulesBook ();
+            var a = new RulesBook();
             a.Show();
             this.Close();
         }

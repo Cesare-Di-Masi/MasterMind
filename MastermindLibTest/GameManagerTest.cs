@@ -58,7 +58,6 @@ namespace MastermindLibTest
             bool expected = false;
 
             Assert.AreEqual(expected, actual);
-
         }
 
         [TestMethod]
@@ -72,7 +71,6 @@ namespace MastermindLibTest
             int expected = 2;
 
             Assert.AreEqual(expected, actual);
-
         }
 
         [TestMethod]
@@ -86,7 +84,6 @@ namespace MastermindLibTest
             int expected = 0;
 
             Assert.AreEqual(expected, actual);
-
         }
 
         [TestMethod]
@@ -100,7 +97,6 @@ namespace MastermindLibTest
             int expected = 4;
             Assert.AreEqual(expected, actual);
         }
-
 
         [TestMethod]
         public void GameManager_PlayerIsOn_SolutionCode_And_GuessIsCorrect()

@@ -17,7 +17,6 @@
 
         public GameManager(bool isColorBlind, int codeLength, int nColours, int nAttempts, int codeComplexity, IGenerator bot = null)
         {
-
             if (codeLength < 4 || codeLength > 12)
                 throw new ArgumentOutOfRangeException("lunghezza del codice deve essere fra 4 e 12");
 
@@ -119,11 +118,10 @@
 
         public GameStatus EndOfTheTurn(Colours[] codeToCheck)
         {
-
             if (codeToCheck == null || codeToCheck.Length != _codeSolution.Length)
                 throw new ArgumentException("il codice tentato è illegale");
 
-            for(int i = 0; i<CodeLength; i++)
+            for (int i = 0; i < CodeLength; i++)
             {
                 if ((int)codeToCheck[i] < 0 || (int)codeToCheck[i] > NColours - 1)
                     throw new ArgumentException("il codice inserito è illegale, colori fuori dal range massimo");
@@ -136,7 +134,7 @@
                 return GameStatus.Won;
             }
 
-            if(NAttempts ==0)
+            if (NAttempts == 0)
             {
                 return GameStatus.Lost;
             }
@@ -156,23 +154,22 @@
                 {
                     _rightPosition++;
                     dummy[i] = Colours.Null;
-                }else
+                }
+                else
                 {
                     correct = false;
                 }
             }
 
-
             bool found = false;
             int counter = 0;
             Colours ColourToCheck = Colours.Null;
 
-            for(int i = 0; i<dummy.Length; i++)
+            for (int i = 0; i < dummy.Length; i++)
             {
-                
                 ColourToCheck = _codeSolution[i];
-                
-                while(found == false && counter < dummy.Length)
+
+                while (found == false && counter < dummy.Length)
                 {
                     if (ColourToCheck == dummy[counter] && dummy[counter] != Colours.Null)
                     {

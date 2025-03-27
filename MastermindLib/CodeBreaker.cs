@@ -18,8 +18,9 @@
             _maxColour = maxColour;
         }
 
-        public CodeBreaker(int maxColour)
+        public CodeBreaker(int maxColour) 
         {
+            _maxColour = maxColour;
             _name = "player" + rnd.Next(0, 100);
         }
 
@@ -47,12 +48,13 @@
             int cos = (int)current;
 
             // Ensure it loops back to the max color when going below 0
-            if (cos <= 0)
-                current = (Colours)(_maxColour - 1);
+            if (cos < 1)
+            {
+                cos = _maxColour - 1;
+                current = (Colours)cos;
+            }
             else
                 current = (Colours)(cos - 1);
         }
-
-
     }
 }

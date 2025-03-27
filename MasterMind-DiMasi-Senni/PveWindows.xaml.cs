@@ -1,17 +1,5 @@
 ﻿using MastermindLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MasterMind_DiMasi_Senni
 {
@@ -21,7 +9,7 @@ namespace MasterMind_DiMasi_Senni
     public partial class PveWindows : Window
     {
         private bool _isColorBlind = true;
-        GameManager game;
+        private GameManager game;
         public EasiestGenerator generator = new EasiestGenerator();
 
         public PveWindows()
@@ -40,17 +28,16 @@ namespace MasterMind_DiMasi_Senni
         {
             game = new GameManager(_isColorBlind, 4, 4, 5, 1);
             Window gameWindow = new GameWindow(game);
-           //gameWindow.Show();
+            //gameWindow.Show();
             this.Close();
         }
 
         private void btnDifficult_Click(object sender, RoutedEventArgs e)
         {
-            game = new GameManager(_isColorBlind,10,6,5,2);
+            game = new GameManager(_isColorBlind, 10, 6, 5, 2);
             Window Game = new GameWindow(game);
             Game.Show();
             this.Close();
-
         }
 
         private void btnMedium_Click(object sender, RoutedEventArgs e)
@@ -63,12 +50,10 @@ namespace MasterMind_DiMasi_Senni
 
         private void btnPersonalized_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void btnPersonalized_Click_1(object sender, RoutedEventArgs e)
         {
-
         }
     }
 }
